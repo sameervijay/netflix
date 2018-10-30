@@ -15,7 +15,6 @@ import java.net.URL;
  */
 
 public class NetflixAsyncTask extends AsyncTask<String, String, String> {
-
     public NetflixAsyncTask() {
     }
 
@@ -38,38 +37,45 @@ public class NetflixAsyncTask extends AsyncTask<String, String, String> {
 
         try {
             URL url = new URL(fullURL);
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setReadTimeout(10000);
-            conn.setConnectTimeout(15000);
-            conn.setRequestMethod(requestMethod);
-            conn.setDoInput(true);
-            conn.setDoOutput(true);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setReadTimeout(20000);
+            connection.setConnectTimeout(25000);
+            connection.setRequestMethod(requestMethod);
+            connection.setDoInput(true);
+            connection.setDoOutput(true);
 
             if (params.length > 2) {
+                OutputStream outputStream = connection.getOutputStream();
+                BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
                 for (int i = 2; i < params.length; i++) {
-                    OutputStream os = conn.getOutputStream();
-                    BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
                     writer.write(params[i]);
-                    writer.flush();
-                    writer.close();
-                    os.close();
                 }
+                writer.flush();
+                writer.close();
+                outputStream.close();
             }
 
-            conn.connect();
+            connection.connect();
 
-            String line, response = "";
-            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-            while ((line=br.readLine()) != null) {
-                response += line;
+            String line;
+            StringBuilder requestResponse = new StringBuilder();
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+            while ((line = bufferedReader.readLine()) != null) {
+                requestResponse.append(line);
             }
 
-            // Do something with the response; printing it for now
-            System.out.println("Response: " + response);
+            // Return the response
+            return requestResponse.toString();
         } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
+    }
+    @Override
+    protected void onPostExecute(String result) {
+        super.onPostExecute(result);
+        // Can do things with the response here; printing it for now
+        System.out.println("Response: " + result);
     }
 }
 
