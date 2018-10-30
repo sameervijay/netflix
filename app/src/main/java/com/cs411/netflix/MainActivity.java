@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         NetflixAsyncTask asyncTask = new NetflixAsyncTask();
-        asyncTask.execute();
+        asyncTask.execute("GET", "get_users");
     }
 }
 

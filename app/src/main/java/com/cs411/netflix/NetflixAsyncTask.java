@@ -16,8 +16,7 @@ import java.net.URL;
 
 public class NetflixAsyncTask extends AsyncTask<String, String, String> {
 
-    public NetflixAsyncTask(){
-        //set context variables if required
+    public NetflixAsyncTask() {
     }
 
     @Override
@@ -25,24 +24,37 @@ public class NetflixAsyncTask extends AsyncTask<String, String, String> {
         super.onPreExecute();
     }
 
+    /*
+     * Expects params in the format:
+     * params[0] = requestMethod (i.e. "GET" or "POST")
+     * params[1] = endpoint (i.e. "get_users")
+     * OPTIONAL params[2] ... params[i] are query parameters (i.e. "username=sameerv2")
+     */
     @Override
     protected String doInBackground(String... params) {
+        String requestMethod = params[0];
+        String endpoint = params[1];
+        String fullURL = "https://nosqls411.web.illinois.edu/" + endpoint + ".php";
+
         try {
-            URL url = new URL("https://nosqls411.web.illinois.edu/find_user.php");
-            System.out.println("32");
+            URL url = new URL(fullURL);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setReadTimeout(10000);
             conn.setConnectTimeout(15000);
-            conn.setRequestMethod("POST");
+            conn.setRequestMethod(requestMethod);
             conn.setDoInput(true);
             conn.setDoOutput(true);
 
-            OutputStream os = conn.getOutputStream();
-            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
-            writer.write("first=Sameer");
-            writer.flush();
-            writer.close();
-            os.close();
+            if (params.length > 2) {
+                for (int i = 2; i < params.length; i++) {
+                    OutputStream os = conn.getOutputStream();
+                    BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
+                    writer.write(params[i]);
+                    writer.flush();
+                    writer.close();
+                    os.close();
+                }
+            }
 
             conn.connect();
 
@@ -52,7 +64,8 @@ public class NetflixAsyncTask extends AsyncTask<String, String, String> {
                 response += line;
             }
 
-            System.out.println(response);
+            // Do something with the response; printing it for now
+            System.out.println("Response: " + response);
         } catch (Exception e) {
             e.printStackTrace();
         }
