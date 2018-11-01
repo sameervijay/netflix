@@ -5,6 +5,7 @@ import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
@@ -13,12 +14,18 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 
+import com.google.gson.FieldNamingPolicy;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 /**
  * Created by sameervijay on 10/30/18.
  */
 
 public class NetflixAsyncTask extends AsyncTask<String, String, String> {
     public LoginActivity loginActivity;
+    private static final Gson GSON = new GsonBuilder().create();
+
     public NetflixAsyncTask() {
     }
 
@@ -60,9 +67,18 @@ public class NetflixAsyncTask extends AsyncTask<String, String, String> {
 
             connection.connect();
 
+            InputStream inputStream;
+            int statusCode = connection.getResponseCode();
+            if (statusCode >= 200 && statusCode < 400) {
+                // Create an InputStream in order to extract the response object
+                inputStream = connection.getInputStream();
+            }
+            else {
+                inputStream = connection.getErrorStream();
+            }
             String line;
             StringBuilder requestResponse = new StringBuilder();
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
             while ((line = bufferedReader.readLine()) != null) {
                 requestResponse.append(line);
             }
@@ -101,7 +117,8 @@ public class NetflixAsyncTask extends AsyncTask<String, String, String> {
         result = resultParts[1];
         switch (resultParts[0]) {
             case "add_user":
-                loginActivity.handleReponse(result);
+                SimpleResponse simpleResponse = GSON.fromJson(result, SimpleResponse.class);
+                loginActivity.handleReponse(simpleResponse);
                 break;
             case "get_users":
                 System.out.println(result);

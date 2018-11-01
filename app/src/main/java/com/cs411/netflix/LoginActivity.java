@@ -50,13 +50,15 @@ public class LoginActivity extends AppCompatActivity {
         asyncTask.execute(paramsArr);
     }
 
-    public void handleReponse(String response) {
-        // TODO: use Gson for JSON parsing
-        String[] parts = response.split(":");
-        if (parts[0].equals("{\"Error\"")) {
-            Toast.makeText(this, parts[1], Toast.LENGTH_LONG).show();
-        } else {
+    public void handleReponse(SimpleResponse response) {
+        if (response.getStatusCode() == 200) {
             Toast.makeText(this, "User added!", Toast.LENGTH_LONG).show();
+        } else {
+            if (response.getStatusCode() == 409) {
+                Toast.makeText(this, "Username taken. Please pick another one", Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(this, "User not added. Please try again", Toast.LENGTH_LONG).show();
+            }
         }
     }
 
