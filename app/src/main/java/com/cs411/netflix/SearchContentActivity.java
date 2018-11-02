@@ -15,18 +15,20 @@ import java.util.ArrayList;
 public class SearchContentActivity extends AppCompatActivity {
     EditText attributeEntry;
     EditText attributeValue;
-    Button searchButton;
+    Button searchButton, addButton;
     TextView movieView1, movieView2, directedView1, directedView2;
     TextView genreView1, genreView2, languageView1, languageView2;
+    String username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //String username = getIntent().getStringExtra("username");
+        username = getIntent().getStringExtra("username");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_content);
         attributeEntry = (EditText) findViewById(R.id.attributeEntry);
         attributeValue = (EditText) findViewById(R.id.attributeValue);
         searchButton = (Button) findViewById(R.id.SearchButton);
+        addButton = (Button) findViewById(R.id.addButton);
 
         movieView1 = (TextView) findViewById(R.id.movieView1);
         movieView2 = (TextView) findViewById(R.id.movieView2);
@@ -40,7 +42,7 @@ public class SearchContentActivity extends AppCompatActivity {
 
     public void searchMovies(View view) {
         hideKeyboard(this);
-
+        addButton.setVisibility(View.INVISIBLE);
         NetflixAsyncTask asyncTask = new NetflixAsyncTask();
         asyncTask.searchContentActivity = this;
 
@@ -67,6 +69,16 @@ public class SearchContentActivity extends AppCompatActivity {
         String[] paramsArr = new String[params.size()];
         paramsArr = params.toArray(paramsArr);
         asyncTask.execute(paramsArr);
+    }
+
+    /*
+    * Onclick for Add Show/Movie button
+    * */
+    public void addMovies(View v)
+    {
+        Intent intent = new Intent(this, AddToWatches.class);
+        intent.putExtra("username", username);
+        startActivity(intent);
     }
 
     public void handleReponse(ContentList contentList) {

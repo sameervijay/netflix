@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Netflix</string>
+    <string name="title_activity_add_to_watches">AddToWatches</string>
 </resources>

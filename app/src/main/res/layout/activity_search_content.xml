@@ -140,6 +140,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/headingText" />
 
+    <Button
+        android:id="@+id/addButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="170dp"
+        android:onClick="addMovies"
+        android:text="Add Show/Movie"
+        app:layout_constraintBottom_toTopOf="@+id/attributeValue"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/SearchButton" />
+
     <TextView
         android:id="@+id/movieView1"
         android:layout_width="221dp"
@@ -190,9 +202,7 @@
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="@+id/genreView1"
         app:layout_constraintStart_toStartOf="@+id/genreView1"
-        app:layout_constraintTop_toBottomOf="@+id/genreView1" /><![CDATA[
+        app:layout_constraintTop_toBottomOf="@+id/genreView1" />
 
-    />
 
-]]>
 </android.support.constraint.ConstraintLayout>

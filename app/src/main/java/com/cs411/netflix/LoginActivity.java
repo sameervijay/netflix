@@ -55,7 +55,7 @@ public class LoginActivity extends AppCompatActivity {
         if (response.getStatusCode() == 200) {
             Toast.makeText(this, "User added!", Toast.LENGTH_LONG).show();
             Intent intent = new Intent(this, SearchContentActivity.class);
-            //intent.putExtra("username", usernameEntry.getText().toString());
+            intent.putExtra("username", usernameEntry.getText().toString());
             startActivity(intent);
         } else {
             if (response.getStatusCode() == 409) {
