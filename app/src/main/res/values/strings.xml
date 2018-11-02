@@ -2,4 +2,5 @@
     <string name="app_name">Netflix</string>
     <string name="title_activity_add_to_watches">AddToWatches</string>
     <string name="title_activity_delete_from_watches">DeleteFromWatches</string>
+    <string name="title_activity_update_watches">activity_update_watches</string>
 </resources>

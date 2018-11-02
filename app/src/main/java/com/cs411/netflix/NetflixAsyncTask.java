@@ -25,6 +25,7 @@ public class NetflixAsyncTask extends AsyncTask<String, String, String> {
     public LoginActivity loginActivity;
     public SearchContentActivity searchContentActivity;
     public AddToWatches addToWatches;
+    public activity_update_watches updateWatches;
     DeleteFromWatches deleteFromWatches;
     private static final Gson GSON = new GsonBuilder().create();
 
@@ -49,14 +50,14 @@ public class NetflixAsyncTask extends AsyncTask<String, String, String> {
         String endpoint = params[1];
         System.out.println("endpoint: " + endpoint);
         String endpointUsed = endpoint;
-        if(endpoint.contains("!") || endpoint.contains("#")){
+        if(endpoint.contains("!") || endpoint.contains("#") || endpoint.contains("^")){
             endpointUsed = endpointUsed.substring(0, endpointUsed.length()-1);
         }
         String fullURL = "https://nosqls411.web.illinois.edu/" + endpointUsed + ".php";
 
         try {
             if (requestMethod.equals("GET")) {
-                if(endpoint.contains("!") || endpoint.contains("#")){
+                if(endpoint.contains("!") || endpoint.contains("#") || endpoint.contains("^")){
                     fullURL += "?name=" + params[2];
                 }
                 else{
@@ -101,7 +102,7 @@ public class NetflixAsyncTask extends AsyncTask<String, String, String> {
             }
 
             // Return the response
-            if(endpoint.contains("!") || endpoint.contains("#")){
+            if(endpoint.contains("!") || endpoint.contains("#") || endpoint.contains("^")){
                 return endpoint + ":::" + requestResponse.toString() + ":::" + params[3];
             }
             else{
@@ -139,6 +140,10 @@ public class NetflixAsyncTask extends AsyncTask<String, String, String> {
         if(resultParts.length> 1){
             result = resultParts[1];
         }
+
+        for(int i = 0; i < resultParts.length; i++){
+            System.out.println("i: " + i + " " + "value: " + resultParts[i]);
+        }
         switch (resultParts[0]) {
             case "add_user":
                 SimpleResponse simpleResponse = GSON.fromJson(result, SimpleResponse.class);
@@ -162,6 +167,12 @@ public class NetflixAsyncTask extends AsyncTask<String, String, String> {
                 ContentList contentListDelete = GSON.fromJson(result, ContentList.class);
                 deleteFromWatches = new DeleteFromWatches();
                 deleteFromWatches.handleResponse(contentListDelete, resultParts[2]);
+                break;
+            case "search_content^":
+                System.out.println("json: " + result);
+                ContentList contentListUpdate = GSON.fromJson(result, ContentList.class);
+                updateWatches = new activity_update_watches();
+                updateWatches.handleResponse(contentListUpdate, resultParts[2], resultParts[3], resultParts[4], resultParts[5]);
                 break;
             default:
                 Log.e("Error", "Unexpected response");

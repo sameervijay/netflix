@@ -35,6 +35,10 @@
         <activity
             android:name=".DeleteFromWatches"
             android:label="@string/title_activity_delete_from_watches"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity_update_watches"
+            android:label="@string/title_activity_update_watches"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

@@ -96,6 +96,16 @@ public class SearchContentActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    /*
+    * Onclick for Update Show/Movie button
+    * */
+    public void updateMovies(View v){
+        System.out.println("Onclick update");
+        Intent intent = new Intent(this, activity_update_watches.class);
+        intent.putExtra("username", username);
+        startActivity(intent);
+    }
+
     public void handleReponse(ContentList contentList) {
         ArrayList<Content> queryContent = contentList.getContentList();
         movieView1.setVisibility(View.INVISIBLE);
