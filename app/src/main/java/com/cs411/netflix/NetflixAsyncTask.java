@@ -24,6 +24,7 @@ import com.google.gson.GsonBuilder;
 
 public class NetflixAsyncTask extends AsyncTask<String, String, String> {
     public LoginActivity loginActivity;
+    public SearchContentActivity searchContentActivity;
     private static final Gson GSON = new GsonBuilder().create();
 
     public NetflixAsyncTask() {
@@ -121,6 +122,9 @@ public class NetflixAsyncTask extends AsyncTask<String, String, String> {
                 loginActivity.handleReponse(simpleResponse);
                 break;
             case "get_users":
+                System.out.println(result);
+                break;
+            case "search_content":
                 System.out.println(result);
                 break;
             default:

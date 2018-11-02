@@ -24,10 +24,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:backgroundTint="@android:color/background_light"
-        android:textColor="@android:color/background_light"
         android:ems="10"
         android:importantForAutofill="no"
-        android:inputType="text"
+        android:inputType="text|textNoSuggestions"
+        android:textColor="@android:color/background_light"
+        android:privateImeOptions="nm"
         app:layout_constraintEnd_toEndOf="@+id/usernameEntry"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/languageView"
@@ -52,13 +53,14 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="32dp"
         android:backgroundTint="@android:color/background_light"
-        android:textColor="@android:color/background_light"
         android:ems="10"
-        android:inputType="textPersonName"
+        android:importantForAutofill="no"
+        android:inputType="textNoSuggestions|textPersonName"
+        android:textColor="@android:color/background_light"
+        android:privateImeOptions="nm"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/usernameView"
-        app:layout_constraintTop_toBottomOf="@+id/usernameView"
-        android:importantForAutofill="no" />
+        app:layout_constraintTop_toBottomOf="@+id/usernameView" />
 
     <TextView
         android:id="@+id/nameView"
@@ -79,13 +81,14 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="32dp"
         android:backgroundTint="@android:color/background_light"
-        android:textColor="@android:color/background_light"
         android:ems="10"
-        android:inputType="textPersonName"
+        android:importantForAutofill="no"
+        android:inputType="textNoSuggestions|textPersonName|textFilter"
+        android:textColor="@android:color/background_light"
+        android:privateImeOptions="nm"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/nameView"
-        app:layout_constraintTop_toBottomOf="@+id/nameView"
-        android:importantForAutofill="no" />
+        app:layout_constraintTop_toBottomOf="@+id/nameView" />
 
     <EditText
         android:id="@+id/ageEntry"
@@ -96,6 +99,7 @@
         android:textColor="@android:color/background_light"
         android:ems="10"
         android:inputType="number"
+        android:privateImeOptions="nm"
         app:layout_constraintStart_toStartOf="@+id/ageView"
         app:layout_constraintTop_toBottomOf="@+id/ageView"
         android:importantForAutofill="no" />
