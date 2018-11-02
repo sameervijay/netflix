@@ -3,6 +3,9 @@ package com.cs411.netflix;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.InputStream;
@@ -13,10 +16,6 @@ import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
-
-import com.google.gson.FieldNamingPolicy;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 /**
  * Created by sameervijay on 10/30/18.
@@ -128,7 +127,8 @@ public class NetflixAsyncTask extends AsyncTask<String, String, String> {
                 System.out.println(result);
                 break;
             case "search_content":
-                System.out.println(result);
+                ContentList contentList = GSON.fromJson(result, ContentList.class);
+                searchContentActivity.handleReponse(contentList);
                 break;
             default:
                 Log.e("Error", "Unexpected response");

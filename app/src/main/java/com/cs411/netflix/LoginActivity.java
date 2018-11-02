@@ -49,8 +49,6 @@ public class LoginActivity extends AppCompatActivity {
         String[] paramsArr = new String[params.size()];
         paramsArr = params.toArray(paramsArr);
         asyncTask.execute(paramsArr);
-
-
     }
 
     public void handleReponse(SimpleResponse response) {

@@ -3,8 +3,60 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/linearLayout"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/languageView2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Language"
+        android:textAlignment="textEnd"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="16sp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@+id/genreView1"
+        app:layout_constraintStart_toEndOf="@+id/directedView2"
+        app:layout_constraintTop_toBottomOf="@+id/genreView2" />
+
+    <TextView
+        android:id="@+id/movieView2"
+        android:layout_width="221dp"
+        android:layout_height="33dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:text="Movie Name"
+        android:textColor="@color/colorPrimary"
+        android:textSize="24sp"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/directedView1" />
+
+    <TextView
+        android:id="@+id/directedView2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Directed by"
+        android:textSize="16sp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toStartOf="@+id/genreView2"
+        app:layout_constraintStart_toStartOf="@+id/movieView2"
+        app:layout_constraintTop_toBottomOf="@+id/movieView2" />
+
+    <TextView
+        android:id="@+id/genreView2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
+        android:text="Genre"
+        android:textAlignment="textEnd"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="16sp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/movieView2"
+        app:layout_constraintTop_toTopOf="@+id/movieView2" />
 
     <TextView
         android:id="@+id/headingText"
@@ -14,6 +66,7 @@
         android:layout_marginTop="32dp"
         android:baselineAligned="false"
         android:text="     Search Movies"
+        android:textColor="@color/colorAccent"
         android:textSize="24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -25,37 +78,41 @@
 
     <EditText
         android:id="@+id/attributeEntry"
-        android:layout_width="118dp"
-        android:layout_height="38dp"
-        android:layout_marginStart="100dp"
+        android:layout_width="0dp"
+        android:layout_height="41dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
+        android:layout_marginEnd="8dp"
         android:ems="10"
+        android:hint="Enter attribute"
         android:inputType="textEmailSubject|textPersonName"
-        android:text='Enter "Genre", "Language", "Director"'
-        app:layout_constraintStart_toStartOf="@+id/headingText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/attributeValueText"
         app:layout_constraintTop_toBottomOf="@+id/headingText" />
 
     <EditText
         android:id="@+id/attributeValue"
-        android:layout_width="112dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="100dp"
-        android:layout_marginTop="56dp"
+        android:layout_width="0dp"
+        android:layout_height="41dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="8dp"
         android:ems="10"
+        android:hint="Enter value of attribute"
         android:inputType="textPersonName"
-        android:text="Enter value of attribute"
-        app:layout_constraintStart_toStartOf="@+id/headingText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/attributeText"
         app:layout_constraintTop_toBottomOf="@+id/headingText" />
 
     <TextView
         android:id="@+id/attributeText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="64dp"
         android:text="Enter Attribute Value:"
+        android:textColor="@color/cardview_dark_background"
         android:textSize="16dp"
-        app:layout_constraintRight_toLeftOf="@+id/attributeEntry"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/headingText" />
 
@@ -63,11 +120,11 @@
         android:id="@+id/attributeValueText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="35dp"
+        android:layout_marginStart="61dp"
         android:layout_marginTop="32dp"
         android:text="Enter Attribute:"
+        android:textColor="@color/cardview_dark_background"
         android:textSize="16dp"
-        app:layout_constraintRight_toLeftOf="@+id/attributeValue"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/headingText" />
 
@@ -75,7 +132,6 @@
         android:id="@+id/SearchButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
         android:layout_marginTop="190dp"
         android:onClick="searchMovies"
         android:text="SEARCH"
@@ -83,6 +139,60 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/headingText" />
+
+    <TextView
+        android:id="@+id/movieView1"
+        android:layout_width="221dp"
+        android:layout_height="33dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:text="Movie Name"
+        android:textColor="@color/colorPrimary"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/SearchButton"
+        android:visibility="invisible" />
+
+    <TextView
+        android:id="@+id/directedView1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Directed by"
+        android:textSize="16sp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@+id/movieView1"
+        app:layout_constraintStart_toStartOf="@+id/movieView1"
+        app:layout_constraintTop_toBottomOf="@+id/movieView1" />
+
+    <TextView
+        android:id="@+id/genreView1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
+        android:text="Genre"
+        android:textAlignment="textEnd"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="16sp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/movieView1"
+        app:layout_constraintTop_toTopOf="@+id/movieView1" />
+
+    <TextView
+        android:id="@+id/languageView1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Language"
+        android:textAlignment="textEnd"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="16sp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@+id/genreView1"
+        app:layout_constraintStart_toStartOf="@+id/genreView1"
+        app:layout_constraintTop_toBottomOf="@+id/genreView1" /><![CDATA[
+
     />
 
+]]>
 </android.support.constraint.ConstraintLayout>
