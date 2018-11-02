@@ -27,10 +27,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SearchContentActivity"></activity>
+        <activity android:name=".SearchContentActivity" />
         <activity
             android:name=".AddToWatches"
             android:label="@string/title_activity_add_to_watches"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".DeleteFromWatches"
+            android:label="@string/title_activity_delete_from_watches"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

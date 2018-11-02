@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public class SearchContentActivity extends AppCompatActivity {
     EditText attributeEntry;
     EditText attributeValue;
-    Button searchButton, addButton;
+    Button searchButton, addButton, deleteButton, updateButton;
     TextView movieView1, movieView2, directedView1, directedView2;
     TextView genreView1, genreView2, languageView1, languageView2;
     String username;
@@ -29,6 +29,8 @@ public class SearchContentActivity extends AppCompatActivity {
         attributeValue = (EditText) findViewById(R.id.attributeValue);
         searchButton = (Button) findViewById(R.id.SearchButton);
         addButton = (Button) findViewById(R.id.addButton);
+        deleteButton = (Button) findViewById(R.id.deleteButton);
+        updateButton = (Button) findViewById(R.id.updateButton);
 
         movieView1 = (TextView) findViewById(R.id.movieView1);
         movieView2 = (TextView) findViewById(R.id.movieView2);
@@ -43,6 +45,8 @@ public class SearchContentActivity extends AppCompatActivity {
     public void searchMovies(View view) {
         hideKeyboard(this);
         addButton.setVisibility(View.INVISIBLE);
+        deleteButton.setVisibility(View.INVISIBLE);
+        updateButton.setVisibility(View.INVISIBLE);
         NetflixAsyncTask asyncTask = new NetflixAsyncTask();
         asyncTask.searchContentActivity = this;
 
@@ -77,6 +81,17 @@ public class SearchContentActivity extends AppCompatActivity {
     public void addMovies(View v)
     {
         Intent intent = new Intent(this, AddToWatches.class);
+        intent.putExtra("username", username);
+        startActivity(intent);
+    }
+
+    /*
+     * Onclick for Delete Show/Movie button
+     * */
+    public void deleteMovies(View v)
+    {
+        System.out.println("Onclick delete");
+        Intent intent = new Intent(this, DeleteFromWatches.class);
         intent.putExtra("username", username);
         startActivity(intent);
     }

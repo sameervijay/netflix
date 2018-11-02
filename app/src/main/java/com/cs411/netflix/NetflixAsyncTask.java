@@ -25,6 +25,7 @@ public class NetflixAsyncTask extends AsyncTask<String, String, String> {
     public LoginActivity loginActivity;
     public SearchContentActivity searchContentActivity;
     public AddToWatches addToWatches;
+    DeleteFromWatches deleteFromWatches;
     private static final Gson GSON = new GsonBuilder().create();
 
     public NetflixAsyncTask() {
@@ -48,14 +49,14 @@ public class NetflixAsyncTask extends AsyncTask<String, String, String> {
         String endpoint = params[1];
         System.out.println("endpoint: " + endpoint);
         String endpointUsed = endpoint;
-        if(endpoint.contains("!")){
+        if(endpoint.contains("!") || endpoint.contains("#")){
             endpointUsed = endpointUsed.substring(0, endpointUsed.length()-1);
         }
         String fullURL = "https://nosqls411.web.illinois.edu/" + endpointUsed + ".php";
 
         try {
             if (requestMethod.equals("GET")) {
-                if(endpoint.contains("!")){
+                if(endpoint.contains("!") || endpoint.contains("#")){
                     fullURL += "?name=" + params[2];
                 }
                 else{
@@ -100,7 +101,7 @@ public class NetflixAsyncTask extends AsyncTask<String, String, String> {
             }
 
             // Return the response
-            if(endpoint.contains("!")){
+            if(endpoint.contains("!") || endpoint.contains("#")){
                 return endpoint + ":::" + requestResponse.toString() + ":::" + params[3];
             }
             else{
@@ -155,6 +156,13 @@ public class NetflixAsyncTask extends AsyncTask<String, String, String> {
                 ContentList contentListAdd = GSON.fromJson(result, ContentList.class);
                 addToWatches = new AddToWatches();
                 addToWatches.handleResponse(contentListAdd, resultParts[2], resultParts[3], resultParts[4], resultParts[5]);
+                break;
+            case "search_content#":
+                System.out.println("json: " + result);
+                ContentList contentListDelete = GSON.fromJson(result, ContentList.class);
+                deleteFromWatches = new DeleteFromWatches();
+                deleteFromWatches.handleResponse(contentListDelete, resultParts[2]);
+                break;
             default:
                 Log.e("Error", "Unexpected response");
         }
