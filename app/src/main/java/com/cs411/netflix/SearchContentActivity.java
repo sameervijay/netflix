@@ -15,6 +15,7 @@ public class SearchContentActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //String username = getIntent().getStringExtra("username");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_content);
         attributeEntry = (EditText) findViewById(R.id.attributeEntry);
@@ -33,6 +34,8 @@ public class SearchContentActivity extends AppCompatActivity {
         params.add("search_content");
         String attribute_text = attributeEntry.getText().toString();
         String attribute_value = attributeValue.getText().toString();
+        System.out.println(attribute_text);
+        System.out.println(attribute_value);
 
         if(attribute_text.equals("Genre")){
             params.add("genre=" + attribute_value);

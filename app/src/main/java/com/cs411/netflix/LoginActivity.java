@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Toast;
+import android.content.Intent;
 
 import java.util.ArrayList;
 
@@ -48,11 +49,16 @@ public class LoginActivity extends AppCompatActivity {
         String[] paramsArr = new String[params.size()];
         paramsArr = params.toArray(paramsArr);
         asyncTask.execute(paramsArr);
+
+
     }
 
     public void handleReponse(SimpleResponse response) {
         if (response.getStatusCode() == 200) {
             Toast.makeText(this, "User added!", Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(this, SearchContentActivity.class);
+            //intent.putExtra("username", usernameEntry.getText().toString());
+            startActivity(intent);
         } else {
             if (response.getStatusCode() == 409) {
                 Toast.makeText(this, "Username taken. Please pick another one", Toast.LENGTH_LONG).show();

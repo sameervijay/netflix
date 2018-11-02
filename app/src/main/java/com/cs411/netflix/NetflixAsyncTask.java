@@ -48,6 +48,9 @@ public class NetflixAsyncTask extends AsyncTask<String, String, String> {
         String fullURL = "https://nosqls411.web.illinois.edu/" + endpoint + ".php";
 
         try {
+            if (requestMethod.equals("GET")) {
+                fullURL += "?" + formatQueryParams(params);
+            }
             URL url = new URL(fullURL);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setReadTimeout(20000);
@@ -56,7 +59,7 @@ public class NetflixAsyncTask extends AsyncTask<String, String, String> {
             connection.setDoInput(true);
             connection.setDoOutput(true);
 
-            if (params.length > 2) {
+            if (requestMethod.equals("POST") && params.length > 2) {
                 OutputStream outputStream = connection.getOutputStream();
                 BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
                 String formattedParams = formatQueryParams(params);
