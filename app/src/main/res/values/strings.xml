@@ -3,4 +3,13 @@
     <string name="title_activity_add_to_watches">AddToWatches</string>
     <string name="title_activity_delete_from_watches">DeleteFromWatches</string>
     <string name="title_activity_update_watches">activity_update_watches</string>
+    <string name="pref_saveCreds_key">saveCredentials</string>
+    <string name="pref_username_key">username</string>
+    <string name="pref_password_key">password</string>
+    <string name="pref_saveCreds_default">2</string>
+    <string name="pref_username_default">DEFAULTUSERNAME</string>
+    <string name="pref_password_default">DEFAULTPASSWORD</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

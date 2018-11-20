@@ -20,11 +20,18 @@
         <!-- <category android:name="android.intent.category.LAUNCHER"/> -->
         <!-- </intent-filter> -->
         <!-- </activity> -->
-        <activity android:name=".LoginActivity">
+        <activity android:name=".PrimaryLoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".LoginActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity android:name=".SearchContentActivity" />
@@ -39,7 +46,7 @@
         <activity
             android:name=".activity_update_watches"
             android:label="@string/title_activity_update_watches"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

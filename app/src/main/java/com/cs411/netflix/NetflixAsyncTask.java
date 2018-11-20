@@ -27,6 +27,7 @@ public class NetflixAsyncTask extends AsyncTask<String, String, String> {
     public AddToWatches addToWatches;
     public activity_update_watches updateWatches;
     DeleteFromWatches deleteFromWatches;
+    public PrimaryLoginActivity primaryLoginActivity;
     private static final Gson GSON = new GsonBuilder().create();
 
     public NetflixAsyncTask() {
@@ -50,7 +51,7 @@ public class NetflixAsyncTask extends AsyncTask<String, String, String> {
         String endpoint = params[1];
         System.out.println("endpoint: " + endpoint);
         String endpointUsed = endpoint;
-        if(endpoint.contains("!") || endpoint.contains("#") || endpoint.contains("^")){
+        if(endpoint.contains("!") || endpoint.contains("#") || endpoint.contains("^") || endpoint.contains("(")){
             endpointUsed = endpointUsed.substring(0, endpointUsed.length()-1);
         }
         String fullURL = "https://nosqls411.web.illinois.edu/" + endpointUsed + ".php";
@@ -59,6 +60,9 @@ public class NetflixAsyncTask extends AsyncTask<String, String, String> {
             if (requestMethod.equals("GET")) {
                 if(endpoint.contains("!") || endpoint.contains("#") || endpoint.contains("^")){
                     fullURL += "?name=" + params[2];
+                }
+                else if(endpoint.contains("(")){
+                    fullURL += "?username=" + params[2];
                 }
                 else{
                     fullURL += "?" + formatQueryParams(params);
@@ -173,6 +177,11 @@ public class NetflixAsyncTask extends AsyncTask<String, String, String> {
                 ContentList contentListUpdate = GSON.fromJson(result, ContentList.class);
                 updateWatches = new activity_update_watches();
                 updateWatches.handleResponse(contentListUpdate, resultParts[2], resultParts[3], resultParts[4], resultParts[5]);
+                break;
+            case "search_users(":
+                System.out.println("json: " + result);
+                SimpleResponse simpleRes = GSON.fromJson(result, SimpleResponse.class);
+                primaryLoginActivity.handleResponse(simpleRes);
                 break;
             default:
                 Log.e("Error", "Unexpected response");
