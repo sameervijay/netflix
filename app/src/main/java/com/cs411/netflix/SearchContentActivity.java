@@ -82,6 +82,7 @@ public class SearchContentActivity extends AppCompatActivity {
     {
         Intent intent = new Intent(this, AddToWatches.class);
         intent.putExtra("username", username);
+        intent.putExtra("movie_name", "");
         startActivity(intent);
     }
 
