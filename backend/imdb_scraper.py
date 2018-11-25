@@ -208,5 +208,5 @@ def populate_metadata():
 # print(get_movie_info('https://www.imdb.com/title/tt0119217/')) # Good Will Hunting
 # print(crawl('forrest gump'))
 # add_content('the office')
-crawl_and_get_content("/marvel/19-mcu-movies-ranked/ls038472133/?pf_rd_m=A2FGELUUNOQJNL&pf_rd_p=460c5650-c7f4-4788-95fc-300c4c5f132b&pf_rd_r=8D49NTFN3JS2DR168CKJ&pf_rd_s=center-4&pf_rd_t=60601&pf_rd_i=marvel&ref_=fea_fea_marvel_mar_mcu_hd", 20)
+crawl_and_get_content("/title/tt7690638/", 20)
 # populate_metadata()
