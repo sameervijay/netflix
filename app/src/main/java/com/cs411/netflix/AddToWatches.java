@@ -28,6 +28,10 @@ public class AddToWatches extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             username = extras.getString("username");
+            //below was added due to Dashboard Activity movie dialog
+            if(!extras.getString("movie_name").equals("")){
+                title.setText(extras.getString("movie_name"));
+            }
         }
     }
 

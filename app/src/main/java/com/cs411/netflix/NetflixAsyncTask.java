@@ -28,6 +28,7 @@ public class NetflixAsyncTask extends AsyncTask<String, String, String> {
     public activity_update_watches updateWatches;
     DeleteFromWatches deleteFromWatches;
     public PrimaryLoginActivity primaryLoginActivity;
+    public DashboardActivity dashboardActivity;
     private static final Gson GSON = new GsonBuilder().create();
 
     public NetflixAsyncTask() {
@@ -51,7 +52,9 @@ public class NetflixAsyncTask extends AsyncTask<String, String, String> {
         String endpoint = params[1];
         System.out.println("endpoint: " + endpoint);
         String endpointUsed = endpoint;
-        if(endpoint.contains("!") || endpoint.contains("#") || endpoint.contains("^") || endpoint.contains("(")){
+        if(endpoint.contains("!") || endpoint.contains("#") || endpoint.contains("^")
+                || endpoint.contains("(") || endpoint.contains(")") || endpoint.contains("+")
+                || endpoint.contains("]")){
             endpointUsed = endpointUsed.substring(0, endpointUsed.length()-1);
         }
         String fullURL = "https://nosqls411.web.illinois.edu/" + endpointUsed + ".php";
@@ -61,8 +64,11 @@ public class NetflixAsyncTask extends AsyncTask<String, String, String> {
                 if(endpoint.contains("!") || endpoint.contains("#") || endpoint.contains("^")){
                     fullURL += "?name=" + params[2];
                 }
-                else if(endpoint.contains("(")){
+                else if(endpoint.contains("(") || endpoint.contains(")")){
                     fullURL += "?username=" + params[2];
+                }
+                else if(endpoint.contains("+") || endpoint.contains("]")){
+                    fullURL += "?contentId=" + params[2];
                 }
                 else{
                     fullURL += "?" + formatQueryParams(params);
@@ -106,7 +112,8 @@ public class NetflixAsyncTask extends AsyncTask<String, String, String> {
             }
 
             // Return the response
-            if(endpoint.contains("!") || endpoint.contains("#") || endpoint.contains("^")){
+            if(endpoint.contains("!") || endpoint.contains("#") || endpoint.contains("^")
+                    || endpoint.contains("]") || endpoint.contains("+")){
                 return endpoint + ":::" + requestResponse.toString() + ":::" + params[3];
             }
             else{
@@ -182,6 +189,21 @@ public class NetflixAsyncTask extends AsyncTask<String, String, String> {
                 System.out.println("json: " + result);
                 SimpleResponse simpleRes = GSON.fromJson(result, SimpleResponse.class);
                 primaryLoginActivity.handleResponse(simpleRes);
+                break;
+            case "get_top3movies_watches)":
+                System.out.println("json: " + result);
+                ContentIdList contentListTop3 = GSON.fromJson(result, ContentIdList.class);
+                dashboardActivity.handleRecomMovieResponse(contentListTop3);
+                break;
+            case "get_movie_thumbnail]":
+                System.out.println("json: " + result);
+                SimpleResponseThumbnail sresponseTN = GSON.fromJson(result, SimpleResponseThumbnail.class);
+                dashboardActivity.handleThumbnailResponse(sresponseTN, Integer.parseInt(resultParts[2]));
+                break;
+            case "search_content_id+":
+                System.out.println("json: " + result);
+                ContentList contentListDash = GSON.fromJson(result, ContentList.class);
+                dashboardActivity.handleMovieSearchResponse(contentListDash, Integer.parseInt(resultParts[2]));
                 break;
             default:
                 Log.e("Error", "Unexpected response");

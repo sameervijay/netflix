@@ -152,7 +152,8 @@ public class PrimaryLoginActivity extends AppCompatActivity{
 
                                 //start next activity only after dialog has been addressed
                                 //TODO: update the activity we switch to from SearchContentActivity to Dashboard activity
-                                Intent intent = new Intent(PrimaryLoginActivity.this, SearchContentActivity.class);
+                                //Intent intent = new Intent(PrimaryLoginActivity.this, SearchContentActivity.class);
+                                Intent intent = new Intent(PrimaryLoginActivity.this, DashboardActivity.class);
                                 intent.putExtra("username", sUser); //the second param here is kind of insecure, should really just save in a global at end of verifyCredentials
                                 startActivity(intent);
                             }
@@ -165,7 +166,8 @@ public class PrimaryLoginActivity extends AppCompatActivity{
 
                                 //start next activity only after dialog has been addressed
                                 //TODO: update the activity we switch to from SearchContentActivity to Dashboard activity
-                                Intent intent = new Intent(PrimaryLoginActivity.this, SearchContentActivity.class);
+                                //Intent intent = new Intent(PrimaryLoginActivity.this, SearchContentActivity.class);
+                                Intent intent = new Intent(PrimaryLoginActivity.this, DashboardActivity.class);
                                 intent.putExtra("username", sUser); //the second param here is kind of insecure, should really just save in a global at end of verifyCredentials
                                 startActivity(intent);
                             }
@@ -178,7 +180,8 @@ public class PrimaryLoginActivity extends AppCompatActivity{
 
                                 //start next activity only after dialog has been addressed
                                 //TODO: update the activity we switch to from SearchContentActivity to Dashboard activity
-                                Intent intent = new Intent(PrimaryLoginActivity.this, SearchContentActivity.class);
+                                //Intent intent = new Intent(PrimaryLoginActivity.this, SearchContentActivity.class);
+                                Intent intent = new Intent(PrimaryLoginActivity.this, DashboardActivity.class);
                                 intent.putExtra("username", sUser); //the second param here is kind of insecure, should really just save in a global at end of verifyCredentials
                                 startActivity(intent);
                             }
@@ -201,7 +204,7 @@ public class PrimaryLoginActivity extends AppCompatActivity{
             }
             else{
                 //this really shouldn't happen as there're only 2 codes being returned by the php
-                Log.d("PLA:handleResponse", "response code not 409 and username not found");
+                Log.e("PLA:handleResponse", "response code not 409 and username not found");
                 return; //do nothing; idk how we even got here
             }
         }

@@ -54,7 +54,8 @@ public class LoginActivity extends AppCompatActivity {
     public void handleReponse(SimpleResponse response) {
         if (response.getStatusCode() == 200) {
             Toast.makeText(this, "User added!", Toast.LENGTH_LONG).show();
-            Intent intent = new Intent(this, SearchContentActivity.class);
+            //Intent intent = new Intent(this, SearchContentActivity.class);
+            Intent intent = new Intent(this, DashboardActivity.class);
             intent.putExtra("username", usernameEntry.getText().toString());
             startActivity(intent);
         } else {
