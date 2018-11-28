@@ -12,6 +12,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.cs411.netflix.GsonTemplates.Content;
+import com.cs411.netflix.GsonTemplates.SimpleResponse;
+import com.cs411.netflix.GsonTemplates.Watches;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -60,6 +63,15 @@ public class ContentDetailActivity extends AppCompatActivity {
         Intent returnIntent = new Intent();
         setResult(Activity.RESULT_OK, returnIntent);
     }
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (watches != null) {
+            // Forces an update to the watches table with new rating and language
+            watches = null;
+            markWatched(watchesButton);
+        }
+    }
 
     private void changeWatchedButton() {
         if (watches == null) {
@@ -104,8 +116,6 @@ public class ContentDetailActivity extends AppCompatActivity {
             params.add("POST");
             params.add("delete_watches");
 
-            String language = languageEntry.getText().toString();
-            String rating = ratingEntry.getText().toString();
             if (!username.equals("")) params.add("username=" + username);
             params.add("contentId=" + content.getContentId());
 
@@ -121,9 +131,10 @@ public class ContentDetailActivity extends AppCompatActivity {
         if (response.getStatusCode() == 200) {
             Toast.makeText(this, "Show added to your viewing history!", Toast.LENGTH_LONG).show();
             finish();
-        } else {
+        } else if (response.getStatusCode() != 201) { // status code 201 means watches table was updated
             Toast.makeText(this, "Show could not be added. Please try again.", Toast.LENGTH_LONG).show();
         }
+
     }
     public void handleDeleteResponse(SimpleResponse response) {
         if (response.getStatusCode() == 200) {

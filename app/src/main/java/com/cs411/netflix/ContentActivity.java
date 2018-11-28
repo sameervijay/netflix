@@ -12,6 +12,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.cs411.netflix.GsonTemplates.Content;
+import com.cs411.netflix.GsonTemplates.ContentList;
+import com.cs411.netflix.GsonTemplates.Watches;
+import com.cs411.netflix.GsonTemplates.WatchesList;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -29,17 +34,21 @@ public class ContentActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_content);
 
-        Bundle extras = getIntent().getExtras();
-        if (extras != null) {
-            username = extras.getString("username");
-        }
-        retrieveWatches(username);
-
         nameEntry = findViewById(R.id.contentNameEntry);
         genreEntry = findViewById(R.id.genreEntryView);
         directorEntry = findViewById(R.id.directorEntryView);
         languageEntry = findViewById(R.id.languageCD);
         ratingEntry = findViewById(R.id.ratingEntryView);
+
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            username = extras.getString("username");
+            String name = extras.getString("name");
+            if (name != null) {
+                nameEntry.setText(name);
+            }
+        }
+        retrieveWatches(username);
 
         // Initializes RecyclerView with adapter
         RecyclerView mainRecyclerView = findViewById(R.id.contentRecyclerView);
@@ -122,6 +131,7 @@ public class ContentActivity extends AppCompatActivity {
 
         Intent detailedIntent = new Intent(this, ContentDetailActivity.class);
         detailedIntent.putExtra("username", username);
+//        detailedIntent.putE
 
         int row = Integer.parseInt(view.getContentDescription().toString());
         if (view.getId() == R.id.changeWatchesButton1 || view.getId() == R.id.cellThumbnail1) {

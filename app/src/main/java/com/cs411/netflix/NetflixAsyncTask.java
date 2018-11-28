@@ -4,6 +4,11 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
 
+import com.cs411.netflix.GsonTemplates.ContentIdList;
+import com.cs411.netflix.GsonTemplates.ContentList;
+import com.cs411.netflix.GsonTemplates.SimpleResponse;
+import com.cs411.netflix.GsonTemplates.SimpleResponseThumbnail;
+import com.cs411.netflix.GsonTemplates.WatchesList;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 

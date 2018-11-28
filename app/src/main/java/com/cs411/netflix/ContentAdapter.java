@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.cs411.netflix.GsonTemplates.Content;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;

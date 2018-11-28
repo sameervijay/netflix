@@ -1,4 +1,4 @@
-package com.cs411.netflix;
+package com.cs411.netflix.GsonTemplates;
 
 import android.os.Parcel;
 import android.os.Parcelable;

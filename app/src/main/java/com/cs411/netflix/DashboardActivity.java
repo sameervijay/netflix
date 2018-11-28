@@ -19,6 +19,12 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.cs411.netflix.GsonTemplates.Content;
+import com.cs411.netflix.GsonTemplates.ContentIdList;
+import com.cs411.netflix.GsonTemplates.ContentList;
+import com.cs411.netflix.GsonTemplates.SimpleResponseThumbnail;
+import com.cs411.netflix.GsonTemplates.Top3Content;
+
 import org.w3c.dom.Text;
 
 import java.io.IOException;

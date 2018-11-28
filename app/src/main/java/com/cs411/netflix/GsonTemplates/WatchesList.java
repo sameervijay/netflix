@@ -1,4 +1,4 @@
-package com.cs411.netflix;
+package com.cs411.netflix.GsonTemplates;
 
 import java.util.ArrayList;
 
