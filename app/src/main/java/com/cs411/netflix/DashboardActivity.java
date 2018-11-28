@@ -30,7 +30,7 @@ public class DashboardActivity extends AppCompatActivity {
 
     ImageButton recMovie1, recMovie2, recMovie3;
     TextView friend1, friend2, friend3;
-    Button browseContentBtn, deleteBtn, updateBtn, addBtn;
+    Button browseContentBtn;
 
     //movie_info dialog views
     //RatingBar stars;
@@ -78,9 +78,6 @@ public class DashboardActivity extends AppCompatActivity {
         friend3 = (TextView) findViewById(R.id.friend3TextViewDash);
 
         browseContentBtn = (Button) findViewById(R.id.browseContentDash);
-        deleteBtn = (Button) findViewById(R.id.deleteButtonDash);
-        updateBtn = (Button) findViewById(R.id.updateMovieDash);
-        addBtn = (Button) findViewById(R.id.addMovieDash);
 
         //movie_info dialog views
         //stars = (RatingBar) findViewById(R.id.ratingBarMD);
@@ -101,33 +98,8 @@ public class DashboardActivity extends AppCompatActivity {
         browseContentBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(DashboardActivity.this, SearchContentActivity.class);
+                Intent intent = new Intent(DashboardActivity.this, ContentActivity.class);
                 intent.putExtra("username", username);
-                startActivity(intent);
-            }
-        });
-        deleteBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(DashboardActivity.this, DeleteFromWatches.class);
-                intent.putExtra("username", username);
-                startActivity(intent);
-            }
-        });
-        updateBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(DashboardActivity.this, activity_update_watches.class);
-                intent.putExtra("username", username);
-                startActivity(intent);
-            }
-        });
-        addBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(DashboardActivity.this, AddToWatches.class);
-                intent.putExtra("username", username);
-                intent.putExtra("movie_name", "");
                 startActivity(intent);
             }
         });

@@ -2,6 +2,7 @@ package com.cs411.netflix;
 
 import android.os.AsyncTask;
 import android.util.Log;
+import android.view.View;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -23,12 +24,15 @@ import java.net.URLEncoder;
 
 public class NetflixAsyncTask extends AsyncTask<String, String, String> {
     public LoginActivity loginActivity;
-    public SearchContentActivity searchContentActivity;
+//    public SearchContentActivity searchContentActivity;
     public AddToWatches addToWatches;
     public activity_update_watches updateWatches;
     DeleteFromWatches deleteFromWatches;
     public PrimaryLoginActivity primaryLoginActivity;
     public DashboardActivity dashboardActivity;
+    public ContentActivity contentActivity;
+    public ContentDetailActivity contentDetailActivity;
+    public View.OnClickListener watchedListener;
     private static final Gson GSON = new GsonBuilder().create();
 
     public NetflixAsyncTask() {
@@ -165,26 +169,38 @@ public class NetflixAsyncTask extends AsyncTask<String, String, String> {
                 break;
             case "search_content":
                 ContentList contentList = GSON.fromJson(result, ContentList.class);
-                searchContentActivity.handleReponse(contentList);
+                contentActivity.handleContentResponse(contentList);
                 break;
-            case "search_content!":
-                System.out.println("json: " + result);
-                ContentList contentListAdd = GSON.fromJson(result, ContentList.class);
-                addToWatches = new AddToWatches();
-                addToWatches.handleResponse(contentListAdd, resultParts[2], resultParts[3], resultParts[4], resultParts[5]);
+            case "get_watches":
+                WatchesList watchesList = GSON.fromJson(result, WatchesList.class);
+                contentActivity.handleWatchesResponse(watchesList);
                 break;
-            case "search_content#":
-                System.out.println("json: " + result);
-                ContentList contentListDelete = GSON.fromJson(result, ContentList.class);
-                deleteFromWatches = new DeleteFromWatches();
-                deleteFromWatches.handleResponse(contentListDelete, resultParts[2]);
+            case "update_watches":
+                SimpleResponse simple = GSON.fromJson(result, SimpleResponse.class);
+                contentDetailActivity.handleAddResponse(simple);
                 break;
-            case "search_content^":
-                System.out.println("json: " + result);
-                ContentList contentListUpdate = GSON.fromJson(result, ContentList.class);
-                updateWatches = new activity_update_watches();
-                updateWatches.handleResponse(contentListUpdate, resultParts[2], resultParts[3], resultParts[4], resultParts[5]);
+            case "delete_watches":
+                SimpleResponse simpleR = GSON.fromJson(result, SimpleResponse.class);
+                contentDetailActivity.handleDeleteResponse(simpleR);
                 break;
+//            case "search_content!":
+//                System.out.println("json: " + result);
+//                ContentList contentListAdd = GSON.fromJson(result, ContentList.class);
+//                addToWatches = new AddToWatches();
+//                addToWatches.handleResponse(contentListAdd, resultParts[2], resultParts[3], resultParts[4], resultParts[5]);
+//                break;
+//            case "search_content#":
+//                System.out.println("json: " + result);
+//                ContentList contentListDelete = GSON.fromJson(result, ContentList.class);
+//                deleteFromWatches = new DeleteFromWatches();
+//                deleteFromWatches.handleResponse(contentListDelete, resultParts[2]);
+//                break;
+//            case "search_content^":
+//                System.out.println("json: " + result);
+//                ContentList contentListUpdate = GSON.fromJson(result, ContentList.class);
+//                updateWatches = new activity_update_watches();
+//                updateWatches.handleResponse(contentListUpdate, resultParts[2], resultParts[3], resultParts[4], resultParts[5]);
+//                break;
             case "search_users(":
                 System.out.println("json: " + result);
                 SimpleResponse simpleRes = GSON.fromJson(result, SimpleResponse.class);

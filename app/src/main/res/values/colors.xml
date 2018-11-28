@@ -3,7 +3,9 @@
     <color name="colorPrimary">#313131</color>
     <color name="colorPrimaryDark">#313131</color>
     <color name="colorAccent">#b32d59</color>
-    <color name="duskYellow">#F9F398</color>
-    <color name="lightGrey">#D3D3D3</color>
-    <color name="gold">#FFDF00</color>
+    <color name="duskYellow">#f9f398</color>
+    <color name="lightGrey">#b3b3b3</color>
+    <color name="gold">#ffdf00</color>
+    <color name="green">#ff669900</color>
+    <color name="red">#ffff4444</color>
 </resources>

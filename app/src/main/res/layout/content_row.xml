@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mainLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageButton
+        android:id="@+id/cellThumbnail1"
+        android:layout_width="91dp"
+        android:layout_height="144dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:onClick="watchedContent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/default_movie_thumbnail" />
+
+    <ImageButton
+        android:id="@+id/cellThumbnail2"
+        android:layout_width="91dp"
+        android:layout_height="144dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:onClick="watchedContent"
+        app:layout_constraintEnd_toStartOf="@+id/cellThumbnail3"
+        app:layout_constraintStart_toEndOf="@+id/cellThumbnail1"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/default_movie_thumbnail" />
+
+    <ImageButton
+        android:id="@+id/cellThumbnail3"
+        android:layout_width="91dp"
+        android:layout_height="144dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
+        android:onClick="watchedContent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/default_movie_thumbnail" />
+
+    <TextView
+        android:id="@+id/cellNameView1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Name 1"
+        android:textAlignment="center"
+        android:textColor="@color/lightGrey"
+        app:layout_constraintEnd_toEndOf="@+id/cellThumbnail1"
+        app:layout_constraintStart_toStartOf="@+id/cellThumbnail1"
+        app:layout_constraintTop_toBottomOf="@+id/cellThumbnail1" />
+
+    <TextView
+        android:id="@+id/cellNameView2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Name 2"
+        android:textAlignment="center"
+        android:textColor="@color/lightGrey"
+        app:layout_constraintEnd_toEndOf="@+id/cellThumbnail2"
+        app:layout_constraintStart_toStartOf="@+id/cellThumbnail2"
+        app:layout_constraintTop_toBottomOf="@+id/changeWatchesButton1" />
+
+    <TextView
+        android:id="@+id/cellNameView3"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Name 3"
+        android:textAlignment="center"
+        android:textColor="@color/lightGrey"
+        app:layout_constraintEnd_toEndOf="@+id/cellThumbnail3"
+        app:layout_constraintStart_toStartOf="@+id/cellThumbnail3"
+        app:layout_constraintTop_toBottomOf="@+id/changeWatchesButton1" />
+
+    <Button
+        android:id="@+id/changeWatchesButton1"
+        style="@style/Widget.AppCompat.Button.Borderless.Colored"
+        android:layout_width="0dp"
+        android:layout_height="34dp"
+        android:background="#CC000000"
+        android:onClick="watchedContent"
+        android:text="Mark Watched"
+        android:textAlignment="center"
+        android:textColor="@android:color/holo_green_dark"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@+id/cellNameView1"
+        app:layout_constraintEnd_toEndOf="@+id/cellThumbnail1"
+        app:layout_constraintStart_toStartOf="@+id/cellThumbnail1" />
+
+    <Button
+        android:id="@+id/changeWatchesButton3"
+        style="@style/Widget.AppCompat.Button.Borderless.Colored"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#CC000000"
+        android:onClick="watchedContent"
+        android:text="Watch"
+        android:textColor="@android:color/holo_green_dark"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/changeWatchesButton1"
+        app:layout_constraintEnd_toEndOf="@+id/cellThumbnail3"
+        app:layout_constraintStart_toStartOf="@+id/cellThumbnail3"
+        app:layout_constraintTop_toTopOf="@+id/changeWatchesButton1" />
+
+    <Button
+        android:id="@+id/changeWatchesButton2"
+        style="@style/Widget.AppCompat.Button.Borderless.Colored"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#CC000000"
+        android:onClick="watchedContent"
+        android:text="Watch"
+        android:textColor="@android:color/holo_green_dark"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/changeWatchesButton1"
+        app:layout_constraintEnd_toEndOf="@+id/cellThumbnail2"
+        app:layout_constraintStart_toStartOf="@+id/cellThumbnail2"
+        app:layout_constraintTop_toTopOf="@+id/changeWatchesButton1" />
+
+</android.support.constraint.ConstraintLayout>

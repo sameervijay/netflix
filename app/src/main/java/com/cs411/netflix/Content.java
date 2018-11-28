@@ -1,6 +1,9 @@
 package com.cs411.netflix;
 
-public class Content {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Content implements Parcelable {
     private String ContentId;
     private String Name;
     private String Genre;
@@ -9,6 +12,7 @@ public class Content {
     private String Language;
     private String Director;
     private String Duration;
+    private String Thumbnail;
 
     public String getContentId() {
         return ContentId;
@@ -73,4 +77,57 @@ public class Content {
     public void setDuration(String duration) {
         this.Duration = duration;
     }
+
+    public String getThumbnail() {
+        return Thumbnail;
+    }
+
+    public void setThumbnail(String thumbnail) {
+        Thumbnail = thumbnail;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.ContentId);
+        dest.writeString(this.Name);
+        dest.writeString(this.Genre);
+        dest.writeString(this.AvgRating);
+        dest.writeString(this.ReleaseDate);
+        dest.writeString(this.Language);
+        dest.writeString(this.Director);
+        dest.writeString(this.Duration);
+        dest.writeString(this.Thumbnail);
+    }
+
+    public Content() {
+    }
+
+    protected Content(Parcel in) {
+        this.ContentId = in.readString();
+        this.Name = in.readString();
+        this.Genre = in.readString();
+        this.AvgRating = in.readString();
+        this.ReleaseDate = in.readString();
+        this.Language = in.readString();
+        this.Director = in.readString();
+        this.Duration = in.readString();
+        this.Thumbnail = in.readString();
+    }
+
+    public static final Creator<Content> CREATOR = new Creator<Content>() {
+        @Override
+        public Content createFromParcel(Parcel source) {
+            return new Content(source);
+        }
+
+        @Override
+        public Content[] newArray(int size) {
+            return new Content[size];
+        }
+    };
 }

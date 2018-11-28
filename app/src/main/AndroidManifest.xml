@@ -34,20 +34,41 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".SearchContentActivity" />
-        <activity
-            android:name=".AddToWatches"
-            android:label="@string/title_activity_add_to_watches"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".DeleteFromWatches"
-            android:label="@string/title_activity_delete_from_watches"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".activity_update_watches"
-            android:label="@string/title_activity_update_watches"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".DashboardActivity"></activity>
+        <activity android:name=".ContentActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".ContentDetailActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".DashboardActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <!--<activity android:name=".SearchContentActivity" />-->
+        <!--<activity-->
+            <!--android:name=".AddToWatches"-->
+            <!--android:label="@string/title_activity_add_to_watches"-->
+            <!--android:theme="@style/AppTheme.NoActionBar" />-->
+        <!--<activity-->
+            <!--android:name=".DeleteFromWatches"-->
+            <!--android:label="@string/title_activity_delete_from_watches"-->
+            <!--android:theme="@style/AppTheme.NoActionBar" />-->
+        <!--<activity-->
+            <!--android:name=".activity_update_watches"-->
+            <!--android:label="@string/title_activity_update_watches"-->
+            <!--android:theme="@style/AppTheme.NoActionBar" />-->
+        <!--<activity android:name=".DashboardActivity"></activity>-->
     </application>
 
 </manifest>
