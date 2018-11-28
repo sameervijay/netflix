@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -48,6 +49,9 @@ public class ContentActivity extends AppCompatActivity {
                 nameEntry.setText(name);
             }
         }
+        if (!nameEntry.getText().toString().equals("")) {
+            searchContent(null);
+        }
         retrieveWatches(username);
 
         // Initializes RecyclerView with adapter
@@ -55,6 +59,8 @@ public class ContentActivity extends AppCompatActivity {
         mainRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new ContentAdapter(this);
         mainRecyclerView.setAdapter(adapter);
+
+        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
     }
 
     /*
