@@ -192,6 +192,12 @@ public class PrimaryLoginActivity extends AppCompatActivity{
                 dialog.show();
 
             }
+            else{
+                //don't edit preferences, only open dashboard
+                Intent intent = new Intent(PrimaryLoginActivity.this, DashboardActivity.class);
+                intent.putExtra("username", sUser);
+                startActivity(intent);
+            }
 
         }
         else{
