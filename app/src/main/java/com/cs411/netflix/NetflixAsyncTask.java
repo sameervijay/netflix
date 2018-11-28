@@ -17,6 +17,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 
+import java.util.ArrayList;
+
 /**
  * Created by sameervijay on 10/30/18.
  */
@@ -58,6 +60,7 @@ public class NetflixAsyncTask extends AsyncTask<String, String, String> {
             endpointUsed = endpointUsed.substring(0, endpointUsed.length()-1);
         }
         String fullURL = "https://nosqls411.web.illinois.edu/" + endpointUsed + ".php";
+        System.out.println(fullURL);
 
         try {
             if (requestMethod.equals("GET")) {
@@ -194,6 +197,33 @@ public class NetflixAsyncTask extends AsyncTask<String, String, String> {
                 System.out.println("json: " + result);
                 ContentIdList contentListTop3 = GSON.fromJson(result, ContentIdList.class);
                 dashboardActivity.handleRecomMovieResponse(contentListTop3);
+                break;
+            case "get_top5_movies)":
+                System.out.println("top5 json: " + result);
+                ContentIdList contentListTop5 = GSON.fromJson(result, ContentIdList.class);
+                /*ArrayList<Top3Content> list = contentListTop5.getContentList();
+                for(Top3Content c: list){
+                    System.out.println(c.getContentId() + "," + c.getViewingLanguage() + "," + c.getDirector() + "," + c.getGenre());
+                }*/
+                dashboardActivity.handleRecomMovieResponse(contentListTop5);
+                break;
+            case "get_top5_movies(":
+                System.out.println("top5 json: " + result);
+                ContentIdList contentListAll = GSON.fromJson(result, ContentIdList.class);
+                /*ArrayList<Top3Content> list = contentListTop5.getContentList();
+                for(Top3Content c: list){
+                    System.out.println(c.getContentId() + "," + c.getViewingLanguage() + "," + c.getDirector() + "," + c.getGenre());
+                }*/
+                dashboardActivity.handleOtherMoviesResponse(contentListAll.getContentList());
+                break;
+            case "get_similar_users":
+                System.out.println("users json: " + result);
+                UserIdList userList = GSON.fromJson(result, UserIdList.class);
+                /*ArrayList<Top3Content> list = contentListTop5.getContentList();
+                for(Top3Content c: list){
+                    System.out.println(c.getContentId() + "," + c.getViewingLanguage() + "," + c.getDirector() + "," + c.getGenre());
+                }*/
+                dashboardActivity.handleSimilarUserResponse(userList);
                 break;
             case "get_movie_thumbnail]":
                 System.out.println("json: " + result);
