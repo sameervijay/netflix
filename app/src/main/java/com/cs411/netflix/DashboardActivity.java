@@ -389,17 +389,17 @@ public class DashboardActivity extends AppCompatActivity {
         aDialog.setOnShowListener(new DialogInterface.OnShowListener() {
             @Override
             public void onShow(DialogInterface dialogInterface) {
-                Button addBtn = ((AlertDialog) aDialog).getButton(AlertDialog.BUTTON_POSITIVE);
-                addBtn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        aDialog.dismiss();
-                        Intent intent = new Intent(DashboardActivity.this, AddToWatches.class);
-                        intent.putExtra("username", username);
-                        intent.putExtra("movie_name", movie_title);
-                        startActivity(intent);
-                    }
-                });
+//                Button addBtn = ((AlertDialog) aDialog).getButton(AlertDialog.BUTTON_POSITIVE);
+//                addBtn.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//                        aDialog.dismiss();
+//                        Intent intent = new Intent(DashboardActivity.this, AddToWatches.class);
+//                        intent.putExtra("username", username);
+//                        intent.putExtra("movie_name", movie_title);
+//                        startActivity(intent);
+//                    }
+//                });
                 Button closeBtn = ((AlertDialog) aDialog).getButton(AlertDialog.BUTTON_NEGATIVE);
                 closeBtn.setOnClickListener(new View.OnClickListener() {
                     @Override

@@ -17,7 +17,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 public class ContentDetailActivity extends AppCompatActivity {
-    private TextView nameView, directorView, genreView, durationView;
+    private TextView nameView, directorView, genreView, durationView, releaseView;
     private EditText ratingEntry, languageEntry;
     private Button watchesButton;
     private ImageView thumbnailView;
@@ -35,6 +35,7 @@ public class ContentDetailActivity extends AppCompatActivity {
         directorView = findViewById(R.id.directorCD);
         genreView = findViewById(R.id.genreCD);
         durationView = findViewById(R.id.durationCD);
+        releaseView = findViewById(R.id.releaseCD);
         ratingEntry = findViewById(R.id.ratingCD);
         languageEntry = findViewById(R.id.languageCD);
         watchesButton = findViewById(R.id.markWatchedCD);
@@ -52,6 +53,7 @@ public class ContentDetailActivity extends AppCompatActivity {
         directorView.setText(content.getDirector());
         genreView.setText("Genre: " + content.getGenre());
         durationView.setText("Duration: " + content.getDuration() + " mins");
+        releaseView.setText("Released: " + content.getReleaseDate());
         Picasso.with(this).load(content.getThumbnail()).into(thumbnailView);
 
         // Set the response in advance so whenever this activity finishes, the underlying activity updates itself

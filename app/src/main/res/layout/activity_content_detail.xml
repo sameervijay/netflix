@@ -5,6 +5,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <TextView
+        android:id="@+id/releaseCD"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="Release"
+        android:textColor="@color/colorPrimary"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/genreCD"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/thumbnailCD" />
+
     <Button
         android:id="@+id/markWatchedCD"
         style="@style/Widget.AppCompat.Button.Borderless"
@@ -21,8 +36,8 @@
 
     <ImageView
         android:id="@+id/thumbnailCD"
-        android:layout_width="158dp"
-        android:layout_height="237dp"
+        android:layout_width="133dp"
+        android:layout_height="200dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -57,26 +72,26 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         android:text="Genre"
         android:textColor="@color/colorPrimary"
         android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/durationCD"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/thumbnailCD"
-        app:layout_constraintTop_toTopOf="@+id/thumbnailCD" />
+        app:layout_constraintStart_toEndOf="@+id/thumbnailCD" />
 
     <TextView
         android:id="@+id/durationCD"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         android:text="Duration"
         android:textColor="@color/colorPrimary"
         android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/thumbnailCD"
         app:layout_constraintEnd_toEndOf="@+id/genreCD"
-        app:layout_constraintStart_toStartOf="@+id/genreCD"
-        app:layout_constraintTop_toBottomOf="@+id/genreCD" />
+        app:layout_constraintStart_toStartOf="@+id/genreCD" />
 
     <EditText
         android:id="@+id/languageCD"
