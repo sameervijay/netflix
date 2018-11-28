@@ -21,6 +21,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.cs411.netflix.GsonTemplates.SimpleResponse;
+
 import java.util.ArrayList;
 
 public class PrimaryLoginActivity extends AppCompatActivity{
@@ -192,6 +194,12 @@ public class PrimaryLoginActivity extends AppCompatActivity{
                         .create();
                 dialog.show();
 
+            }
+            else{
+                //don't edit preferences, only open dashboard
+                Intent intent = new Intent(PrimaryLoginActivity.this, DashboardActivity.class);
+                intent.putExtra("username", sUser);
+                startActivity(intent);
             }
 
         }

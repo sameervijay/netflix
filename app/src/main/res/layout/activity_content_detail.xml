@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/releaseCD"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="Release"
+        android:textColor="@color/colorPrimary"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/genreCD"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/thumbnailCD" />
+
+    <Button
+        android:id="@+id/markWatchedCD"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:background="@color/colorAccent"
+        android:onClick="markWatched"
+        android:text="Mark Watched"
+        android:textColor="@color/cardview_light_background"
+        app:layout_constraintEnd_toEndOf="@+id/directorCD"
+        app:layout_constraintStart_toStartOf="@+id/directorCD"
+        app:layout_constraintTop_toBottomOf="@+id/directorCD" />
+
+    <ImageView
+        android:id="@+id/thumbnailCD"
+        android:layout_width="133dp"
+        android:layout_height="200dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/default_movie_thumbnail" />
+
+    <TextView
+        android:id="@+id/nameCD"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:text="Name"
+        android:textColor="@color/colorAccent"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/thumbnailCD"
+        app:layout_constraintTop_toBottomOf="@+id/thumbnailCD" />
+
+    <TextView
+        android:id="@+id/directorCD"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Director"
+        android:textSize="22sp"
+        app:layout_constraintEnd_toEndOf="@+id/nameCD"
+        app:layout_constraintStart_toStartOf="@+id/nameCD"
+        app:layout_constraintTop_toBottomOf="@+id/nameCD" />
+
+    <TextView
+        android:id="@+id/genreCD"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="Genre"
+        android:textColor="@color/colorPrimary"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/durationCD"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/thumbnailCD" />
+
+    <TextView
+        android:id="@+id/durationCD"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="Duration"
+        android:textColor="@color/colorPrimary"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/thumbnailCD"
+        app:layout_constraintEnd_toEndOf="@+id/genreCD"
+        app:layout_constraintStart_toStartOf="@+id/genreCD" />
+
+    <EditText
+        android:id="@+id/languageCD"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:hint="Language"
+        android:importantForAutofill="no"
+        android:inputType="text"
+        android:privateImeOptions="nm"
+        app:layout_constraintEnd_toEndOf="@+id/markWatchedCD"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toBottomOf="@+id/markWatchedCD" />
+
+    <EditText
+        android:id="@+id/ratingCD"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:ems="10"
+        android:hint="Rating"
+        android:importantForAutofill="no"
+        android:inputType="text"
+        android:privateImeOptions="nm"
+        app:layout_constraintEnd_toStartOf="@+id/guideline"
+        app:layout_constraintStart_toStartOf="@+id/markWatchedCD"
+        app:layout_constraintTop_toBottomOf="@+id/markWatchedCD" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
+
+</android.support.constraint.ConstraintLayout>

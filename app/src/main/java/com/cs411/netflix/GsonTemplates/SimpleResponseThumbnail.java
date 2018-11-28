@@ -1,4 +1,4 @@
-package com.cs411.netflix;
+package com.cs411.netflix.GsonTemplates;
 
 public class SimpleResponseThumbnail {
     private TNItem response;

@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/login_background2">
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/mainLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/contentNameEntry"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="24dp"
+            android:backgroundTint="@android:color/background_light"
+            android:ems="10"
+            android:hint="Name"
+            android:importantForAutofill="no"
+            android:inputType="text"
+            android:privateImeOptions="nm"
+            android:textColor="@android:color/background_light"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/languageCD"
+            android:layout_width="162dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:backgroundTint="@android:color/background_light"
+            android:ems="10"
+            android:hint="Language"
+            android:importantForAutofill="no"
+            android:inputType="text"
+            android:privateImeOptions="nm"
+            android:textColor="@android:color/background_light"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/genreEntryView" />
+
+        <EditText
+            android:id="@+id/genreEntryView"
+            android:layout_width="162dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:backgroundTint="@android:color/background_light"
+            android:ems="10"
+            android:hint="Genre"
+            android:importantForAutofill="no"
+            android:inputType="text"
+            android:privateImeOptions="nm"
+            android:textColor="@android:color/background_light"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/contentNameEntry" />
+
+        <EditText
+            android:id="@+id/directorEntryView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:backgroundTint="@android:color/background_light"
+            android:ems="10"
+            android:hint="Director"
+            android:importantForAutofill="no"
+            android:inputType="text"
+            android:privateImeOptions="nm"
+            android:textColor="@android:color/background_light"
+            app:layout_constraintEnd_toEndOf="@+id/contentNameEntry"
+            app:layout_constraintStart_toEndOf="@+id/genreEntryView"
+            app:layout_constraintTop_toTopOf="@+id/genreEntryView" />
+
+        <EditText
+            android:id="@+id/ratingEntryView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:backgroundTint="@android:color/background_light"
+            android:ems="10"
+            android:hint="Min Rating"
+            android:importantForAutofill="no"
+            android:inputType="numberDecimal"
+            android:privateImeOptions="nm"
+            android:textColor="@android:color/background_light"
+            app:layout_constraintEnd_toEndOf="@+id/directorEntryView"
+            app:layout_constraintStart_toEndOf="@+id/languageCD"
+            app:layout_constraintTop_toBottomOf="@+id/genreEntryView" />
+
+        <Button
+            android:id="@+id/clearFilterButton"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"
+            android:background="@color/lightGrey"
+            android:onClick="clearFilters"
+            android:text="Clear Filters"
+            app:layout_constraintEnd_toEndOf="@+id/ratingEntryView"
+            app:layout_constraintStart_toStartOf="@+id/ratingEntryView"
+            app:layout_constraintTop_toTopOf="@+id/filterButton" />
+
+        <Button
+            android:id="@+id/filterButton"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="4dp"
+            android:background="@color/cardview_light_background"
+            android:onClick="searchContent"
+            android:text="Filter"
+            app:layout_constraintEnd_toEndOf="@+id/languageCD"
+            app:layout_constraintStart_toStartOf="@+id/languageCD"
+            app:layout_constraintTop_toBottomOf="@+id/languageCD" />
+    </android.support.constraint.ConstraintLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/contentRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/filterButton" />
+</LinearLayout>
