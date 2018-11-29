@@ -59,18 +59,17 @@ public class ContentDetailActivity extends AppCompatActivity {
         releaseView.setText("Released: " + content.getReleaseDate());
         Picasso.with(this).load(content.getThumbnail()).into(thumbnailView);
 
-        // Set the response in advance so whenever this activity finishes, the underlying activity updates itself
-        Intent returnIntent = new Intent();
-        setResult(Activity.RESULT_OK, returnIntent);
     }
     @Override
-    public void onDestroy() {
-        super.onDestroy();
-        if (watches != null) {
-            // Forces an update to the watches table with new rating and language
-            watches = null;
-            markWatched(watchesButton);
-        }
+    public void finish() {
+        Intent intent = new Intent();
+        watches.setUserRating(Float.parseFloat(ratingEntry.getText().toString()));
+        watches.setViewingLanguage(languageEntry.getText().toString());
+        intent.putExtra("watches", watches);
+        setResult(RESULT_OK, intent);
+        watches = null;
+        markWatched(watchesButton);
+        super.finish();
     }
 
     private void changeWatchedButton() {

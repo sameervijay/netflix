@@ -137,7 +137,6 @@ public class ContentActivity extends AppCompatActivity {
 
         Intent detailedIntent = new Intent(this, ContentDetailActivity.class);
         detailedIntent.putExtra("username", username);
-//        detailedIntent.putE
 
         int row = Integer.parseInt(view.getContentDescription().toString());
         if (view.getId() == R.id.changeWatchesButton1 || view.getId() == R.id.cellThumbnail1) {
@@ -163,11 +162,16 @@ public class ContentActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         try {
             super.onActivityResult(requestCode, resultCode, data);
-            retrieveWatches(username);
+            if (data != null) {
+                Bundle extras = data.getExtras();
+                if (extras != null) {
+                    Watches w = extras.getParcelable("watches");
+                    watches.put(w.getContentId(), w);
+                }
+            }
         } catch (Exception ex) {
             Toast.makeText(this, "Something went wrong", Toast.LENGTH_SHORT).show();
         }
-
     }
 
     public static void hideKeyboard(Activity activity) {

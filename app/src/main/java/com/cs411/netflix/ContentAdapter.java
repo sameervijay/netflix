@@ -79,7 +79,8 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ContentV
             viewHolder.watchButton1.setVisibility(View.VISIBLE);
             viewHolder.imgButton1.setVisibility(View.VISIBLE);
             viewHolder.nameView1.setText(content1.getName());
-            Picasso.with(context).load(content1.getThumbnail()).into(viewHolder.imgButton1);
+            if (content1.getThumbnail() != null && !content1.getThumbnail().isEmpty())
+                Picasso.with(context).load(content1.getThumbnail()).into(viewHolder.imgButton1);
 
             changeWatchedButton(viewHolder.watchButton1,
                     contentActivity.getIfWatched(Integer.parseInt(content1.getContentId())) != null);
@@ -94,7 +95,8 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ContentV
             viewHolder.watchButton2.setVisibility(View.VISIBLE);
             viewHolder.imgButton2.setVisibility(View.VISIBLE);
             viewHolder.nameView2.setText(content2.getName());
-            Picasso.with(context).load(content2.getThumbnail()).into(viewHolder.imgButton2);
+            if (content2.getThumbnail() != null && !content2.getThumbnail().isEmpty())
+                Picasso.with(context).load(content2.getThumbnail()).into(viewHolder.imgButton2);
 
             changeWatchedButton(viewHolder.watchButton2,
                     contentActivity.getIfWatched(Integer.parseInt(content2.getContentId())) != null);
@@ -109,7 +111,8 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ContentV
             viewHolder.watchButton3.setVisibility(View.VISIBLE);
             viewHolder.imgButton3.setVisibility(View.VISIBLE);
             viewHolder.nameView3.setText(content3.getName());
-            Picasso.with(context).load(content3.getThumbnail()).into(viewHolder.imgButton3);
+            if (content3.getThumbnail() != null && !content3.getThumbnail().isEmpty())
+                Picasso.with(context).load(content3.getThumbnail()).into(viewHolder.imgButton3);
 
             changeWatchedButton(viewHolder.watchButton3,
                     contentActivity.getIfWatched(Integer.parseInt(content3.getContentId())) != null);
