@@ -138,9 +138,12 @@ public class PrimaryLoginActivity extends AppCompatActivity{
             SharedPreferences settings = PrimaryLoginActivity.this.getPreferences(Context.MODE_PRIVATE);
             final SharedPreferences.Editor editor = settings.edit();
             int saveCredentials = settings.getInt(saveCredKey, defSaveCredentials);
+            System.out.println("REACHED 1");
 
             //do not prompt if save is set to never or set to save (because already saved)
             if(saveCredentials != neverSaveCredentials && saveCredentials != doSaveCredentials) {
+                System.out.println("REACHED 2");
+
                 AlertDialog dialog = new AlertDialog.Builder(this)
                         .setTitle("Save Credentials?")
                         .setMessage("Would you like to save your login credentials for faster future login?")
@@ -151,7 +154,7 @@ public class PrimaryLoginActivity extends AppCompatActivity{
                                 editor.putString(usernameKey, sUser);
                                 editor.putString(passwordKey, sPass);
                                 editor.commit(); //synchronous as opposed to the asynchronous apply()
-
+                                System.out.println("REACHED 3");
                                 //start next activity only after dialog has been addressed
                                 //TODO: update the activity we switch to from SearchContentActivity to Dashboard activity
                                 //Intent intent = new Intent(PrimaryLoginActivity.this, SearchContentActivity.class);
@@ -191,6 +194,12 @@ public class PrimaryLoginActivity extends AppCompatActivity{
                         .create();
                 dialog.show();
 
+            }
+            else{
+                //don't edit preferences, only open dashboard
+                Intent intent = new Intent(PrimaryLoginActivity.this, DashboardActivity.class);
+                intent.putExtra("username", sUser);
+                startActivity(intent);
             }
 
         }

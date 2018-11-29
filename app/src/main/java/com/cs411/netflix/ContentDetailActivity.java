@@ -63,12 +63,14 @@ public class ContentDetailActivity extends AppCompatActivity {
     @Override
     public void finish() {
         Intent intent = new Intent();
-        watches.setUserRating(Float.parseFloat(ratingEntry.getText().toString()));
-        watches.setViewingLanguage(languageEntry.getText().toString());
-        intent.putExtra("watches", watches);
-        setResult(RESULT_OK, intent);
-        watches = null;
-        markWatched(watchesButton);
+        if (watches != null) {
+            watches.setUserRating(Float.parseFloat(ratingEntry.getText().toString()));
+            watches.setViewingLanguage(languageEntry.getText().toString());
+            intent.putExtra("watches", watches);
+            setResult(RESULT_OK, intent);
+            watches = null;
+            markWatched(watchesButton);
+        }
         super.finish();
     }
 

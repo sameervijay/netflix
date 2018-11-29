@@ -13,6 +13,8 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="8dp"
         android:onClick="watchedContent"
+        android:scaleType="fitCenter"
+        android:background="#00000000"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/default_movie_thumbnail" />
@@ -25,6 +27,8 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:onClick="watchedContent"
+        android:scaleType="fitCenter"
+        android:background="#00000000"
         app:layout_constraintEnd_toStartOf="@+id/cellThumbnail3"
         app:layout_constraintStart_toEndOf="@+id/cellThumbnail1"
         app:layout_constraintTop_toTopOf="parent"
@@ -37,6 +41,8 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="24dp"
         android:onClick="watchedContent"
+        android:scaleType="fitCenter"
+        android:background="#00000000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/default_movie_thumbnail" />

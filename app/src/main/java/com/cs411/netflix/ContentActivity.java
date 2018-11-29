@@ -29,6 +29,7 @@ public class ContentActivity extends AppCompatActivity {
     private List<Content> contentList = new ArrayList<>();
     private ContentAdapter adapter;
     private String username;
+    private Watches currentDetail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -143,17 +144,26 @@ public class ContentActivity extends AppCompatActivity {
             Content content = contentList.get(row * 3);
             detailedIntent.putExtra("content", content);
             Integer contentId = Integer.parseInt(content.getContentId());
-            if (watches.containsKey(contentId)) detailedIntent.putExtra("watches", watches.get(contentId));
+            if (watches.containsKey(contentId)) {
+                detailedIntent.putExtra("watches", watches.get(contentId));
+                currentDetail = watches.get(contentId);
+            }
         } else if (view.getId() == R.id.changeWatchesButton2 || view.getId() == R.id.cellThumbnail2) {
             Content content = contentList.get(row * 3 + 1);
             detailedIntent.putExtra("content", content);
             Integer contentId = Integer.parseInt(content.getContentId());
-            if (watches.containsKey(contentId)) detailedIntent.putExtra("watches", watches.get(contentId));
+            if (watches.containsKey(contentId)) {
+                detailedIntent.putExtra("watches", watches.get(contentId));
+                currentDetail = watches.get(contentId);
+            }
         } else if (view.getId() == R.id.changeWatchesButton3 || view.getId() == R.id.cellThumbnail3) {
             Content content = contentList.get(row * 3 + 2);
             detailedIntent.putExtra("content", content);
             Integer contentId = Integer.parseInt(content.getContentId());
-            if (watches.containsKey(contentId)) detailedIntent.putExtra("watches", watches.get(contentId));
+            if (watches.containsKey(contentId)) {
+                detailedIntent.putExtra("watches", watches.get(contentId));
+                currentDetail = watches.get(contentId);
+            }
         }
         startActivityForResult(detailedIntent, 1);
     }
@@ -167,7 +177,13 @@ public class ContentActivity extends AppCompatActivity {
                 if (extras != null) {
                     Watches w = extras.getParcelable("watches");
                     watches.put(w.getContentId(), w);
+                    adapter.notifyDataSetChanged();
+                    currentDetail = null;
                 }
+            }
+            if (currentDetail != null) {
+                watches.remove(currentDetail.getContentId());
+                currentDetail = null;
             }
         } catch (Exception ex) {
             Toast.makeText(this, "Something went wrong", Toast.LENGTH_SHORT).show();

@@ -8,8 +8,6 @@ import android.os.AsyncTask;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Layout;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,8 +27,12 @@ import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.security.spec.ECField;
 import java.util.ArrayList;
+
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 public class DashboardActivity extends AppCompatActivity {
 
@@ -48,6 +50,8 @@ public class DashboardActivity extends AppCompatActivity {
     String username;
     //TODO: this ArrayList will initially contain the user's top3 movies until recommendation functionality is impl.ed
     ArrayList<Integer> recommendedMovies; //populated in handleRecomMovieResponse
+    Set<String> myWatchedMovies;
+    int thumbIndex;
     //make array of ImageButtons to set the correct image when retrieving thumbnails
     ImageButton[] imgBtnRefs = new ImageButton[3];
     String ThumbnailURL;
@@ -60,7 +64,7 @@ public class DashboardActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
-
+        thumbIndex = 0;
         recMovie1 = (ImageButton) findViewById(R.id.recomMovie1ImgBtn);
         recMovie2 = (ImageButton) findViewById(R.id.recomMovie2ImgBtn);
         recMovie3 = (ImageButton) findViewById(R.id.recomMovie3ImgBtn);
@@ -204,11 +208,42 @@ public class DashboardActivity extends AppCompatActivity {
 
         ArrayList<String> params = new ArrayList<>();
         params.add("GET");
-        params.add("get_top3movies_watches)");
+        params.add("get_top5_movies)");
         params.add(username);
         String[] paramsArr = new String[params.size()];
         paramsArr = params.toArray(paramsArr);
         Log.d("DashActvty:getRecMovies", "searching for highest rated movies");
+        task.execute(paramsArr);
+    }
+
+    public void getOthersMovies(String theuser){
+        NetflixAsyncTask task = new NetflixAsyncTask();
+        task.dashboardActivity = this;
+
+        ArrayList<String> params = new ArrayList<>();
+        params.add("GET");
+        params.add("get_top5_movies(");
+        params.add(theuser);
+        String[] paramsArr = new String[params.size()];
+        paramsArr = params.toArray(paramsArr);
+        Log.d("DashActvty:getRecMovies", "searching for highest rated movies");
+        task.execute(paramsArr);
+    }
+
+    public void getUsers(String genre, String director, String language){
+        NetflixAsyncTask task = new NetflixAsyncTask();
+        task.dashboardActivity = this;
+
+        ArrayList<String> params = new ArrayList<>();
+        params.add("GET");
+        params.add("get_similar_users");
+        params.add("username=" + username);
+        params.add("genre=" + genre);
+        params.add("director=" + director);
+        params.add("language=" + language);
+        String[] paramsArr = new String[params.size()];
+        paramsArr = params.toArray(paramsArr);
+        Log.d("DashActvty:getSmlrUsers", "searching for similar users");
         task.execute(paramsArr);
     }
 
@@ -217,7 +252,84 @@ public class DashboardActivity extends AppCompatActivity {
      *  It populates an array list of the contentIds (ints) for each of the top3 movies that were retrieved
      * */
     public void handleRecomMovieResponse(ContentIdList clist){
-        if(clist==null) return;
+        HashMap<String, Integer> director_Count = new HashMap<String, Integer>();
+        HashMap<String, Integer> viewingLanguage_Count = new HashMap<String, Integer>();
+        HashMap<String, Integer> genre_Count = new HashMap<String, Integer>();
+
+        ArrayList<Top3Content> list = clist.getContentList();
+        for(Top3Content t : list){
+            System.out.println(t.getContentId());
+        }
+        ArrayList<Top3Content> top5list = new ArrayList<Top3Content>();
+
+        for(int i = 0; i < 5; i++){
+            top5list.add(list.get(i));
+        }
+
+        int directorMax = 0;
+        String directorM = "";
+        int genreMax = 0;
+        String genreM = "";
+        int viewingLanguageMax = 0;
+        String viewingLanguageM = "";
+
+        for(Top3Content c: top5list){
+            if(director_Count.containsKey(c.getDirector())){
+                Integer count = director_Count.get(c.getDirector());
+                director_Count.put(c.getDirector(), count+1);
+                if(count + 1 > directorMax){
+                    directorMax = count+1;
+                    directorM = c.getDirector();
+                }
+            }
+            else{
+                director_Count.put(c.getDirector(), 1);
+                if(1 > directorMax){
+                    directorMax = 1;
+                    directorM = c.getDirector();
+                }
+            }
+
+            if(viewingLanguage_Count.containsKey(c.getViewingLanguage())){
+                Integer count = viewingLanguage_Count.get(c.getViewingLanguage());
+                viewingLanguage_Count.put(c.getViewingLanguage(), count+1);
+                if(count + 1 > viewingLanguageMax){
+                    viewingLanguageMax = count+1;
+                    viewingLanguageM = c.getViewingLanguage();
+                }
+            }
+            else{
+                viewingLanguage_Count.put(c.getViewingLanguage(), 1);
+                if(1> directorMax){
+                    viewingLanguageMax = 1;
+                    viewingLanguageM = c.getViewingLanguage();
+                }
+            }
+
+            if(genre_Count.containsKey(c.getGenre())){
+                Integer count = genre_Count.get(c.getGenre());
+                genre_Count.put(c.getDirector(), count+1);
+                if(count + 1 > genreMax){
+                    genreMax = count+1;
+                    genreM = c.getGenre();
+                }
+            }
+            else {
+                genre_Count.put(c.getGenre(), 1);
+                if(1 > genreMax){
+                    genreMax = 1;
+                    genreM = c.getGenre();
+                }
+            }
+        }
+        System.out.println(genreM + directorM + viewingLanguageM);
+        myWatchedMovies = new HashSet<String>();
+        for(Top3Content t: list){
+            myWatchedMovies.add(t.getContentId());
+        }
+        getUsers(genreM, directorM, viewingLanguageM);
+
+        /*if(clist==null) return;
         ArrayList<Top3Content> contentId = clist.getContentList();
         if(contentId==null) return;
         for(int i = 0; i < contentId.size(); i++){
@@ -245,7 +357,41 @@ public class DashboardActivity extends AppCompatActivity {
                 getThumbnails(currContentId, Integer.toString(i));
             }
 
+        }*/
+    }
+
+    public void handleSimilarUserResponse(UserIdList users){
+        int count = 0;
+        for(User u: users.getContent()){
+            if(count == 3){
+                return;
+            }
+            if(count == 0){
+                friend1.setText(u.getUsername());
+            }
+            else if(count == 1){
+                friend2.setText(u.getUsername());
+            }
+            else{
+                friend3.setText(u.getUsername());
+            }
+            getOthersMovies(u.getUsername());
+            count++;
         }
+    }
+
+    public void handleOtherMoviesResponse(ArrayList<Top3Content> movies){
+        //getThumbnails(currContentId, Integer.toString(i));
+
+        for(Top3Content t : movies){
+            if(!myWatchedMovies.contains(t.getContentId())){
+                getThumbnails(t.getContentId(), Integer.toString(thumbIndex++));
+                myWatchedMovies.add(t.getContentId());
+                return;
+            }
+
+        }
+        //Thumbnail stuff
     }
 
     /**
