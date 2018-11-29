@@ -172,19 +172,23 @@ public class ContentActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         try {
             super.onActivityResult(requestCode, resultCode, data);
-            if (data != null) {
-                Bundle extras = data.getExtras();
-                if (extras != null) {
-                    Watches w = extras.getParcelable("watches");
-                    watches.put(w.getContentId(), w);
-                    adapter.notifyDataSetChanged();
-                    currentDetail = null;
-                }
-            }
-            if (currentDetail != null) {
+            // 1. Delete watches; data used to be not null, data is null now
+            // 2. Update watches; data won't be null
+            // 3. Add watches; data used to be null, is still null
+            if (currentDetail == null && data == null) {
+                // Content was added to watches; refresh watches
+                retrieveWatches(username);
+            } else if (data == null) {
+                // Content was deleted from watches; remove it from the local map
                 watches.remove(currentDetail.getContentId());
-                currentDetail = null;
+                adapter.notifyDataSetChanged();
+            } else {
+                // Content was updated
+                Watches w = data.getExtras().getParcelable("watches");
+                watches.put(w.getContentId(), w);
+                adapter.notifyDataSetChanged();
             }
+            currentDetail = null;
         } catch (Exception ex) {
             Toast.makeText(this, "Something went wrong", Toast.LENGTH_SHORT).show();
         }
