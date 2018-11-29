@@ -8,6 +8,8 @@ import android.os.AsyncTask;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Html;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -50,6 +52,7 @@ public class DashboardActivity extends AppCompatActivity {
     String username;
     //TODO: this ArrayList will initially contain the user's top3 movies until recommendation functionality is impl.ed
     ArrayList<Integer> recommendedMovies; //populated in handleRecomMovieResponse
+    ArrayList<User> similarUsers; //populated in handleSimilarUserResponse
     Set<String> myWatchedMovies;
     int thumbIndex;
     //make array of ImageButtons to set the correct image when retrieving thumbnails
@@ -247,6 +250,23 @@ public class DashboardActivity extends AppCompatActivity {
         task.execute(paramsArr);
     }
 
+    public void getRandomUsers(String u1, String u2){
+        NetflixAsyncTask task = new NetflixAsyncTask();
+        task.dashboardActivity = this;
+
+        ArrayList<String> params = new ArrayList<>();
+        params.add("GET");
+        params.add("get_random_users");
+        params.add("username=" + username);
+        params.add("username1=" + u1);
+        params.add("username2=" + u2);
+        String[] paramsArr = new String[params.size()];
+        paramsArr = params.toArray(paramsArr);
+        Log.d("DashActvty:getSmlrUsers", "searching for similar users");
+        System.out.println(Arrays.toString(paramsArr));
+        task.execute(paramsArr);
+    }
+
     /**
      *  This method handles the getRecommendedMovies query response and should be called in onCreate
      *  It populates an array list of the contentIds (ints) for each of the top3 movies that were retrieved
@@ -257,15 +277,18 @@ public class DashboardActivity extends AppCompatActivity {
         HashMap<String, Integer> genre_Count = new HashMap<String, Integer>();
 
         ArrayList<Top3Content> list = clist.getContentList();
+        if(list.size() == 0){
+            getRandomUsers("", "");
+        }
         for(Top3Content t : list){
             System.out.println(t.getContentId());
         }
         ArrayList<Top3Content> top5list = new ArrayList<Top3Content>();
-
-        for(int i = 0; i < 5; i++){
-            top5list.add(list.get(i));
+        int max = 5;
+        int cc = 0;
+        while(cc < max && cc < list.size()){
+            top5list.add(list.get(cc++));
         }
-
         int directorMax = 0;
         String directorM = "";
         int genreMax = 0;
@@ -361,24 +384,103 @@ public class DashboardActivity extends AppCompatActivity {
     }
 
     public void handleSimilarUserResponse(UserIdList users){
-        int count = 0;
-        for(User u: users.getContent()){
-            if(count == 3){
-                return;
+        similarUsers = users.getContent();
+        if(users.getContent().size() < 3){
+            if(users.getContent().size() == 0){
+                getRandomUsers("", "");
             }
-            if(count == 0){
-                friend1.setText(u.getUsername());
-            }
-            else if(count == 1){
-                friend2.setText(u.getUsername());
+            else if(users.getContent().size() == 1){
+                getRandomUsers(users.getContent().get(0).getUsername(), "");
             }
             else{
-                friend3.setText(u.getUsername());
+                getRandomUsers(users.getContent().get(0).getUsername(), users.getContent().get(1).getUsername());
+            }
+        }
+    }
+
+    public void handleRandomUserResponse(UserIdList users){
+        int count = 0;
+        for(User u: similarUsers){
+            System.out.println(u.getFBProfile());
+            if(count == 0){
+                if(u.getFBProfile() == null){
+                    friend1.setText(u.getUsername());
+                }
+                else {
+
+                    friend1.setText(Html.fromHtml("<a href=\"" + u.getFBProfile() + "\">" + u.getUsername() + "</a>"));
+                    friend1.setClickable(true);
+                    friend1.setMovementMethod(LinkMovementMethod.getInstance());
+                }
+
+            }
+            else if(count == 1){
+                if(u.getFBProfile() == null){
+                    friend2.setText(u.getUsername());
+                }
+                else {
+
+                    friend2.setText(Html.fromHtml("<a href=\"" + u.getFBProfile() + "\">" + u.getUsername() + "</a>"));
+                    friend2.setClickable(true);
+                    friend2.setMovementMethod(LinkMovementMethod.getInstance());
+                }
+            }
+            else{
+
+                if(u.getFBProfile() == null){
+                    friend3.setText(u.getUsername());
+                }
+                else {
+
+                    friend3.setText(Html.fromHtml("<a href=\"" + u.getFBProfile() + "\">" + u.getUsername() + "</a>"));
+                    friend3.setClickable(true);
+                    friend3.setMovementMethod(LinkMovementMethod.getInstance());
+                }
+            }
+            getOthersMovies(u.getUsername());
+            count++;
+        }
+        for(User u: users.getContent()){
+            System.out.println(u.getFBProfile());
+            if(count == 0){
+                if(u.getFBProfile() == null){
+                    friend1.setText(u.getUsername());
+                }
+                else {
+
+                    friend1.setText(Html.fromHtml("<a href=\"" + u.getFBProfile() + "\">" + u.getUsername() + "</a>"));
+                    friend1.setClickable(true);
+                    friend1.setMovementMethod(LinkMovementMethod.getInstance());
+                }
+            }
+            else if(count == 1){
+                if(u.getFBProfile() == null){
+                    friend2.setText(u.getUsername());
+                }
+                else {
+
+                    friend2.setText(Html.fromHtml("<a href=\"" + u.getFBProfile() + "\">" + u.getUsername() + "</a>"));
+                    friend2.setClickable(true);
+                    friend2.setMovementMethod(LinkMovementMethod.getInstance());
+                }
+            }
+            else{
+                if(u.getFBProfile() == null){
+                    friend3.setText(u.getUsername());
+                }
+                else {
+
+                    friend3.setText(Html.fromHtml("<a href=\"" + u.getFBProfile() + "\">" + u.getUsername() + "</a>"));
+                    friend3.setClickable(true);
+                    friend3.setMovementMethod(LinkMovementMethod.getInstance());
+                }
             }
             getOthersMovies(u.getUsername());
             count++;
         }
     }
+
+
 
     public void handleOtherMoviesResponse(ArrayList<Top3Content> movies){
         //getThumbnails(currContentId, Integer.toString(i));

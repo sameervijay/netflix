@@ -142,7 +142,12 @@ public class NetflixAsyncTask extends AsyncTask<String, String, String> {
             String[] pair = params[i].split("=");
             formatted.append(pair[0]);
             formatted.append("=");
-            formatted.append(URLEncoder.encode(pair[1], "UTF-8"));
+            if(pair.length == 1){
+                formatted.append(URLEncoder.encode("", "UTF-8"));
+            }
+            else {
+                formatted.append(URLEncoder.encode(pair[1], "UTF-8"));
+            }
         }
         return formatted.toString();
     }
@@ -223,6 +228,15 @@ public class NetflixAsyncTask extends AsyncTask<String, String, String> {
                     System.out.println(c.getContentId() + "," + c.getViewingLanguage() + "," + c.getDirector() + "," + c.getGenre());
                 }*/
                 dashboardActivity.handleSimilarUserResponse(userList);
+                break;
+            case "get_random_users":
+                System.out.println("random users json: " + result);
+                UserIdList randomUserList = GSON.fromJson(result, UserIdList.class);
+                /*ArrayList<Top3Content> list = contentListTop5.getContentList();
+                for(Top3Content c: list){
+                    System.out.println(c.getContentId() + "," + c.getViewingLanguage() + "," + c.getDirector() + "," + c.getGenre());
+                }*/
+                dashboardActivity.handleRandomUserResponse(randomUserList);
                 break;
             case "get_movie_thumbnail]":
                 System.out.println("json: " + result);
