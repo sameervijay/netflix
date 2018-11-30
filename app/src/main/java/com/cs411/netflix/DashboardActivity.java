@@ -410,10 +410,12 @@ public class DashboardActivity extends AppCompatActivity {
             if(count == 0){
                 if(u.getFBProfile() == null){
                     friend1.setText(u.getUsername());
+                    friend1.setBackgroundColor(getResources().getColor(R.color.two_thirds_opaque_white));
                 }
                 else {
 
                     friend1.setText(Html.fromHtml("<a href=\"" + u.getFBProfile() + "\">" + u.getUsername() + "</a>"));
+                    friend1.setBackgroundColor(getResources().getColor(R.color.two_thirds_opaque_white));
                     friend1.setClickable(true);
                     friend1.setMovementMethod(LinkMovementMethod.getInstance());
                 }
@@ -422,24 +424,28 @@ public class DashboardActivity extends AppCompatActivity {
             else if(count == 1){
                 if(u.getFBProfile() == null){
                     friend2.setText(u.getUsername());
+                    friend2.setBackgroundColor(getResources().getColor(R.color.two_thirds_opaque_white));
                 }
                 else {
 
                     friend2.setText(Html.fromHtml("<a href=\"" + u.getFBProfile() + "\">" + u.getUsername() + "</a>"));
                     friend2.setClickable(true);
                     friend2.setMovementMethod(LinkMovementMethod.getInstance());
+                    friend2.setBackgroundColor(getResources().getColor(R.color.two_thirds_opaque_white));
                 }
             }
             else{
 
                 if(u.getFBProfile() == null){
                     friend3.setText(u.getUsername());
+                    friend3.setBackgroundColor(getResources().getColor(R.color.two_thirds_opaque_white));
                 }
                 else {
 
                     friend3.setText(Html.fromHtml("<a href=\"" + u.getFBProfile() + "\">" + u.getUsername() + "</a>"));
                     friend3.setClickable(true);
                     friend3.setMovementMethod(LinkMovementMethod.getInstance());
+                    friend3.setBackgroundColor(getResources().getColor(R.color.two_thirds_opaque_white));
                 }
             }
             getOthersMovies(u.getUsername());
@@ -450,10 +456,12 @@ public class DashboardActivity extends AppCompatActivity {
             if(count == 0){
                 if(u.getFBProfile() == null){
                     friend1.setText(u.getUsername());
+                    friend1.setBackgroundColor(getResources().getColor(R.color.two_thirds_opaque_white));
                 }
                 else {
 
                     friend1.setText(Html.fromHtml("<a href=\"" + u.getFBProfile() + "\">" + u.getUsername() + "</a>"));
+                    friend1.setBackgroundColor(getResources().getColor(R.color.two_thirds_opaque_white));
                     friend1.setClickable(true);
                     friend1.setMovementMethod(LinkMovementMethod.getInstance());
                 }
@@ -461,10 +469,12 @@ public class DashboardActivity extends AppCompatActivity {
             else if(count == 1){
                 if(u.getFBProfile() == null){
                     friend2.setText(u.getUsername());
+                    friend2.setBackgroundColor(getResources().getColor(R.color.two_thirds_opaque_white));
                 }
                 else {
 
                     friend2.setText(Html.fromHtml("<a href=\"" + u.getFBProfile() + "\">" + u.getUsername() + "</a>"));
+                    friend2.setBackgroundColor(getResources().getColor(R.color.two_thirds_opaque_white));
                     friend2.setClickable(true);
                     friend2.setMovementMethod(LinkMovementMethod.getInstance());
                 }
@@ -472,10 +482,12 @@ public class DashboardActivity extends AppCompatActivity {
             else{
                 if(u.getFBProfile() == null){
                     friend3.setText(u.getUsername());
+                    friend3.setBackgroundColor(getResources().getColor(R.color.two_thirds_opaque_white));
                 }
                 else {
 
                     friend3.setText(Html.fromHtml("<a href=\"" + u.getFBProfile() + "\">" + u.getUsername() + "</a>"));
+                    friend3.setBackgroundColor(getResources().getColor(R.color.two_thirds_opaque_white));
                     friend3.setClickable(true);
                     friend3.setMovementMethod(LinkMovementMethod.getInstance());
                 }

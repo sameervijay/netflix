@@ -85,8 +85,9 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ContentV
             viewHolder.nameView1.setText(content1.getName());
             //Log.d("ContentAdapter", "content1 not null");
             if (content1.getThumbnail() != null && !content1.getThumbnail().isEmpty()) {
-                //Log.d("ContentAdapter", "content1 thumbnail exists");
+                Log.d("ContentAdapter", "content1 thumbnail exists");
                 Picasso.with(context).load(content1.getThumbnail()).resize(2000, 2960).onlyScaleDown().into(viewHolder.imgButton1);
+                //Picasso.with(context).load(content1.getThumbnail()).into(viewHolder.imgButton1);
             }
 
             changeWatchedButton(viewHolder.watchButton1,
@@ -102,9 +103,11 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ContentV
             viewHolder.watchButton2.setVisibility(View.VISIBLE);
             viewHolder.imgButton2.setVisibility(View.VISIBLE);
             viewHolder.nameView2.setText(content2.getName());
-            if (content2.getThumbnail() != null && !content2.getThumbnail().isEmpty())
+            if (content2.getThumbnail() != null && !content2.getThumbnail().isEmpty()) {
+                Log.d("ContentAdapter", "content2 thumbnail exists");
+                //Picasso.with(context).load(content2.getThumbnail()).into(viewHolder.imgButton2);
                 Picasso.with(context).load(content2.getThumbnail()).resize(2000, 2960).onlyScaleDown().into(viewHolder.imgButton2);
-
+            }
             changeWatchedButton(viewHolder.watchButton2,
                     contentActivity.getIfWatched(Integer.parseInt(content2.getContentId())) != null);
         } else {
@@ -118,9 +121,11 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ContentV
             viewHolder.watchButton3.setVisibility(View.VISIBLE);
             viewHolder.imgButton3.setVisibility(View.VISIBLE);
             viewHolder.nameView3.setText(content3.getName());
-            if (content3.getThumbnail() != null && !content3.getThumbnail().isEmpty())
+            if (content3.getThumbnail() != null && !content3.getThumbnail().isEmpty()) {
+                Log.d("ContentAdapter", "content3 thumbnail exists");
+                //Picasso.with(context).load(content3.getThumbnail()).into(viewHolder.imgButton3);
                 Picasso.with(context).load(content3.getThumbnail()).resize(2000, 2960).onlyScaleDown().into(viewHolder.imgButton3);
-
+            }
             changeWatchedButton(viewHolder.watchButton3,
                     contentActivity.getIfWatched(Integer.parseInt(content3.getContentId())) != null);
         } else {
