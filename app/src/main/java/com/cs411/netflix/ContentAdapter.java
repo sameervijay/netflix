@@ -1,7 +1,9 @@
 package com.cs411.netflix;
 
 import android.content.Context;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,8 +12,10 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.cs411.netflix.GsonTemplates.Content;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
+import java.util.EmptyStackException;
 import java.util.List;
 
 /**
@@ -68,7 +72,7 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ContentV
         }
     }
 
-    private void setContentViews(ContentViewHolder viewHolder, Content[] shows) {
+    private void setContentViews(final ContentViewHolder viewHolder, Content[] shows) {
         Content content1 = shows[0];
         Content content2 = shows[1];
         Content content3 = shows[2];
@@ -79,8 +83,11 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ContentV
             viewHolder.watchButton1.setVisibility(View.VISIBLE);
             viewHolder.imgButton1.setVisibility(View.VISIBLE);
             viewHolder.nameView1.setText(content1.getName());
-            if (content1.getThumbnail() != null && !content1.getThumbnail().isEmpty())
-                Picasso.with(context).load(content1.getThumbnail()).into(viewHolder.imgButton1);
+            //Log.d("ContentAdapter", "content1 not null");
+            if (content1.getThumbnail() != null && !content1.getThumbnail().isEmpty()) {
+                //Log.d("ContentAdapter", "content1 thumbnail exists");
+                Picasso.with(context).load(content1.getThumbnail()).resize(2000, 2960).onlyScaleDown().into(viewHolder.imgButton1);
+            }
 
             changeWatchedButton(viewHolder.watchButton1,
                     contentActivity.getIfWatched(Integer.parseInt(content1.getContentId())) != null);
@@ -96,7 +103,7 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ContentV
             viewHolder.imgButton2.setVisibility(View.VISIBLE);
             viewHolder.nameView2.setText(content2.getName());
             if (content2.getThumbnail() != null && !content2.getThumbnail().isEmpty())
-                Picasso.with(context).load(content2.getThumbnail()).into(viewHolder.imgButton2);
+                Picasso.with(context).load(content2.getThumbnail()).resize(2000, 2960).onlyScaleDown().into(viewHolder.imgButton2);
 
             changeWatchedButton(viewHolder.watchButton2,
                     contentActivity.getIfWatched(Integer.parseInt(content2.getContentId())) != null);
@@ -112,7 +119,7 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ContentV
             viewHolder.imgButton3.setVisibility(View.VISIBLE);
             viewHolder.nameView3.setText(content3.getName());
             if (content3.getThumbnail() != null && !content3.getThumbnail().isEmpty())
-                Picasso.with(context).load(content3.getThumbnail()).into(viewHolder.imgButton3);
+                Picasso.with(context).load(content3.getThumbnail()).resize(2000, 2960).onlyScaleDown().into(viewHolder.imgButton3);
 
             changeWatchedButton(viewHolder.watchButton3,
                     contentActivity.getIfWatched(Integer.parseInt(content3.getContentId())) != null);

@@ -57,7 +57,7 @@ public class ContentDetailActivity extends AppCompatActivity {
         genreView.setText("Genre: " + content.getGenre());
         durationView.setText("Duration: " + content.getDuration() + " mins");
         releaseView.setText("Released: " + content.getReleaseDate());
-        Picasso.with(this).load(content.getThumbnail()).into(thumbnailView);
+        Picasso.with(this).load(content.getThumbnail()).resize(3000, 4438).onlyScaleDown().into(thumbnailView);
 
     }
     @Override

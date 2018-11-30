@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -47,6 +48,15 @@ public class PrimaryLoginActivity extends AppCompatActivity{
         setContentView(R.layout.activity_primary_login);
         userEntry = (EditText) findViewById(R.id.usernameEntryPL);
         passEntry = (EditText) findViewById(R.id.passwordEntryPL);
+
+        //request the starting focus on username text field and keyboard starts hidden
+        userEntry.requestFocus();
+        //request that the starting focus is on the username edit text and that keyboard starts up - update: prob don't want this as it hides some buttons
+        /*
+        if(userEntry.requestFocus()) {
+            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+        }
+        */
 
         //set the underline color to white
         ColorStateList csl = ColorStateList.valueOf(Color.WHITE);

@@ -73,6 +73,7 @@ public class DashboardActivity extends AppCompatActivity {
         recMovie1.setEnabled(false);
         recMovie2.setEnabled(false);
         recMovie3.setEnabled(false);
+        Log.d("Dash:onCreate", "disabled clickable property of movie buttons");
 
         imgBtnRefs[0] = recMovie1;
         imgBtnRefs[1] = recMovie2;
@@ -86,6 +87,11 @@ public class DashboardActivity extends AppCompatActivity {
         friend1 = (TextView) findViewById(R.id.friend1TextViewDash);
         friend2 = (TextView) findViewById(R.id.friend2TextViewDash);
         friend3 = (TextView) findViewById(R.id.friend3TextViewDash);
+
+        //set default text to empty string
+        friend1.setText("");
+        friend2.setText("");
+        friend3.setText("");
 
         browseContentBtn = (Button) findViewById(R.id.browseContentDash);
 
@@ -123,6 +129,8 @@ public class DashboardActivity extends AppCompatActivity {
         recMovie1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Log.d("Dash:onCreate", "clicked on movie button 1");
+                Log.d("Dash:recMovie1 onclick", "recommended movies is = " + ((recommendedMovies==null)?"null":"not null") + ((recommendedMovies!=null && recommendedMovies.size()==0)?"; size is 0":"size is greater than 0"));
                 //TODO: put movie retrieval script call here (prob just use search_content)
                 if(recommendedMovies==null || recommendedMovies.size() == 0) {
                     return;
@@ -368,12 +376,15 @@ public class DashboardActivity extends AppCompatActivity {
             }
             if(count == 0){
                 friend1.setText(u.getUsername());
+                friend1.setBackgroundColor(getResources().getColor(R.color.two_thirds_opaque_white));
             }
             else if(count == 1){
                 friend2.setText(u.getUsername());
+                friend2.setBackgroundColor(getResources().getColor(R.color.two_thirds_opaque_white));
             }
             else{
                 friend3.setText(u.getUsername());
+                friend3.setBackgroundColor(getResources().getColor(R.color.two_thirds_opaque_white));
             }
             getOthersMovies(u.getUsername());
             count++;
@@ -387,6 +398,14 @@ public class DashboardActivity extends AppCompatActivity {
             if(!myWatchedMovies.contains(t.getContentId())){
                 getThumbnails(t.getContentId(), Integer.toString(thumbIndex++));
                 myWatchedMovies.add(t.getContentId());
+                try{
+                    int id = Integer.parseInt(t.getContentId());
+                    recommendedMovies.add(id);
+                } catch(NumberFormatException ne){
+                    Log.e("Dash:handleOther", "contentId string was not a number; here's what it was: " + t.getContentId());
+                    ne.printStackTrace();
+                }
+
                 return;
             }
 
@@ -435,9 +454,18 @@ public class DashboardActivity extends AppCompatActivity {
             urls[i] = ThumbnailURL;
             new DownloadImageTask((ImageButton) imgBtnRefs[i], null).execute(ThumbnailURL);
         }
-        if(i==0) recMovie1.setEnabled(true);
-        else if(i==1) recMovie2.setEnabled(true);
-        else if(i==2) recMovie3.setEnabled(true);
+        if(i==0){
+            recMovie1.setEnabled(true);
+            Log.d("Dash:handleTNResp", "enabled clickable property of movie button 1");
+        }
+        else if(i==1){
+            recMovie2.setEnabled(true);
+            Log.d("Dash:handleTNResp", "enabled clickable property of movie button 2");
+        }
+        else if(i==2){
+            recMovie3.setEnabled(true);
+            Log.d("Dash:handleTNResp", "enabled clickable property of movie button 3");
+        }
     }
 
     /**
