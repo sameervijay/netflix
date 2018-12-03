@@ -2,6 +2,8 @@ from bs4 import BeautifulSoup
 from collections import deque
 import requests
 import json
+import queue
+import threading
 
 # Does a Google search and retrieves the first IMDb link
 def get_movie_url(query):
@@ -97,23 +99,24 @@ def crawl(query):
 
 # Crawls IMDb given a seed url
 def crawl_imdb(seed_url, count):
-    movie_urls = [] # full links to content
+    movie_urls = queue.Queue() # full links to content
     completed = set() # endpoints of visited content
     adjacent_urls = deque([seed_url]) # adjacent endpoints to visit
     pending = set()
     pending.add(seed_url)
 
-    while len(adjacent_urls) > 0 and len(movie_urls) <= count:
+    while len(adjacent_urls) > 0 and movie_urls.qsize() <= count:
         link = adjacent_urls.popleft()
         full_link = "https://imdb.com" + link
         pending.remove(link)
         if "/title" in link: # to not include seed url of "https://imdb.com"
-            movie_urls.append(full_link)
+            movie_urls.put(full_link)
             completed.add(link)
+            global_completed.add(link)
         print(full_link)
 
         # If we already have enough links completed or pending, don't add any more
-        if len(movie_urls) + len(adjacent_urls) > count:
+        if movie_urls.qsize() + len(adjacent_urls) > count:
             continue
 
         try:
@@ -130,7 +133,7 @@ def crawl_imdb(seed_url, count):
 
             if href and href.startswith("/title"):
                 imdb_end = href.split('?')[0][:16] # extracts something like 'title/tt5734576'
-                if imdb_end not in completed and imdb_end not in pending:
+                if imdb_end not in completed and imdb_end not in pending and imdb_end not in global_completed:
                     print("Found " + imdb_end)
                     adjacent_urls.append(imdb_end)
                     pending.add(imdb_end)
@@ -155,10 +158,26 @@ def get_content_from_query(query):
     return get_movie_info(url)
 
 # Takes a seed url, crawls through imdb for urls, then gets movie info for each
-def crawl_and_get_content(seed_url, count):
+def crawl_and_get_content(seed_url, count, num_threads):
     urls = crawl_imdb(seed_url, count)
     print(urls)
-    for url in urls:
+    bulk_add_content_from_urls(urls, num_threads)
+
+def bulk_add_content_from_urls(urls, num_threads):
+    # creating thread
+    threads = []
+    for i in range(num_threads):
+        t1 = threading.Thread(target=handle_content_urls, args=(urls,))
+        t1.start()
+        threads.append(t1)
+    for thread in threads:
+        thread.join()
+
+def handle_content_urls(urls):
+    while urls.qsize() > 0:
+        url = urls.get(block=False)
+        if not url:
+            return
         # Don't run on seed_url
         if '/title/' not in url:
             continue
@@ -208,5 +227,12 @@ def populate_metadata():
 # print(get_movie_info('https://www.imdb.com/title/tt0119217/')) # Good Will Hunting
 # print(crawl('forrest gump'))
 # add_content('the office')
-crawl_and_get_content("/title/tt1266020/", 50)
+global_completed = set()
+for i in range(0, 30):
+    base = "/search/title?keywords=superhero&view=simple&start="
+    # base = "/search/title?genres=superhero&view=simple&start="
+    base += str(i * 50)
+    base += "&explore=title_type,genres&ref_=adv_nxt"
+    crawl_and_get_content(base, 60, 8)
+    print(" -------------------- FINISHED " + str(i) + " -------------------- ")
 # populate_metadata()
