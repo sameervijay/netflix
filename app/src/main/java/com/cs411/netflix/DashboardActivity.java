@@ -408,7 +408,7 @@ public class DashboardActivity extends AppCompatActivity {
         for(User u: similarUsers){
             System.out.println(u.getFBProfile());
             if(count == 0){
-                if(u.getFBProfile() == null){
+                if(u.getFBProfile().isEmpty()){
                     friend1.setText(u.getUsername());
                     friend1.setBackgroundColor(getResources().getColor(R.color.two_thirds_opaque_white));
                 }
@@ -422,7 +422,7 @@ public class DashboardActivity extends AppCompatActivity {
 
             }
             else if(count == 1){
-                if(u.getFBProfile() == null){
+                if(u.getFBProfile().isEmpty()){
                     friend2.setText(u.getUsername());
                     friend2.setBackgroundColor(getResources().getColor(R.color.two_thirds_opaque_white));
                 }
@@ -436,7 +436,7 @@ public class DashboardActivity extends AppCompatActivity {
             }
             else{
 
-                if(u.getFBProfile() == null){
+                if(u.getFBProfile().isEmpty()){
                     friend3.setText(u.getUsername());
                     friend3.setBackgroundColor(getResources().getColor(R.color.two_thirds_opaque_white));
                 }
@@ -454,7 +454,7 @@ public class DashboardActivity extends AppCompatActivity {
         for(User u: users.getContent()){
             System.out.println(u.getFBProfile());
             if(count == 0){
-                if(u.getFBProfile() == null){
+                if(u.getFBProfile().isEmpty()){
                     friend1.setText(u.getUsername());
                     friend1.setBackgroundColor(getResources().getColor(R.color.two_thirds_opaque_white));
                 }
@@ -467,7 +467,7 @@ public class DashboardActivity extends AppCompatActivity {
                 }
             }
             else if(count == 1){
-                if(u.getFBProfile() == null){
+                if(u.getFBProfile().isEmpty()){
                     friend2.setText(u.getUsername());
                     friend2.setBackgroundColor(getResources().getColor(R.color.two_thirds_opaque_white));
                 }
@@ -480,7 +480,7 @@ public class DashboardActivity extends AppCompatActivity {
                 }
             }
             else{
-                if(u.getFBProfile() == null){
+                if(u.getFBProfile().isEmpty()){
                     friend3.setText(u.getUsername());
                     friend3.setBackgroundColor(getResources().getColor(R.color.two_thirds_opaque_white));
                 }

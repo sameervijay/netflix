@@ -1,0 +1,21 @@
+<?php
+// This is a GET request, but if it were a POST, could retrieve query parameters here
+$username = $_POST["username"];
+mysql_real_escape_string($username);
+
+$query = "SELECT FullName FROM Users WHERE Username = '$username'";
+$db = new mysqli('localhost', 'nosqls411_sameer', 'netflix411', 'nosqls411_Chill_DB');
+
+if($db->connect_errno > 0){
+    die('Unable to connect to database [' . $db->connect_error . ']');
+}
+
+if(!$result = $db->query($query)){
+    die('There was an error running the query [' . $db->error . ']');
+}
+while($row = $result->fetch_assoc()){
+    //echo $row['Username'] . ' ';
+    echo $row['FullName'] . ' ';
+}
+
+?>

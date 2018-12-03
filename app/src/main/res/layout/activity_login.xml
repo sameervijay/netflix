@@ -19,6 +19,34 @@
         app:srcCompat="@drawable/login_background2" />
 
     <EditText
+        android:id="@+id/regionEntry"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="32dp"
+        android:backgroundTint="@android:color/background_light"
+        android:ems="10"
+        android:importantForAutofill="no"
+        android:inputType="textNoSuggestions|textPersonName"
+        android:privateImeOptions="nm"
+        android:textColor="@android:color/background_light"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/regionView"
+        app:layout_constraintTop_toBottomOf="@+id/regionView" />
+
+    <TextView
+        android:id="@+id/regionView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        android:text="State (or country if outside US)"
+        android:textColor="@android:color/background_light"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ageEntry" />
+
+    <EditText
         android:id="@+id/languageEntry"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -133,14 +161,15 @@
         style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="32dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="24dp"
+        android:layout_marginEnd="32dp"
         android:background="@color/cardview_light_background"
         android:onClick="addUser"
         android:text="Create account"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ageEntry"/>
+        app:layout_constraintTop_toBottomOf="@+id/regionEntry" />
 
 </android.support.constraint.ConstraintLayout>
