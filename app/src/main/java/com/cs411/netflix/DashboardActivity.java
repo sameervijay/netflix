@@ -405,6 +405,7 @@ public class DashboardActivity extends AppCompatActivity {
 
     public void handleRandomUserResponse(UserIdList users){
         int count = 0;
+        if(similarUsers != null)
         for(User u: similarUsers){
             System.out.println(u.getFBProfile());
             if(count == 0){
@@ -451,6 +452,7 @@ public class DashboardActivity extends AppCompatActivity {
             getOthersMovies(u.getUsername());
             count++;
         }
+        if(users!=null)
         for(User u: users.getContent()){
             System.out.println(u.getFBProfile());
             if(count == 0){
@@ -504,7 +506,7 @@ public class DashboardActivity extends AppCompatActivity {
 
         for(Top3Content t : movies){
             if(!myWatchedMovies.contains(t.getContentId())){
-                getThumbnails(t.getContentId(), Integer.toString(thumbIndex++));
+                if(thumbIndex < 3) getThumbnails(t.getContentId(), Integer.toString(thumbIndex++));
                 myWatchedMovies.add(t.getContentId());
                 try{
                     int id = Integer.parseInt(t.getContentId());
